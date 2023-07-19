@@ -15,10 +15,15 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int maxScreenRow = 12;
     public final int screenWidth = finalSize * maxScreenCol;
     public final int screenHeight = finalSize * maxScreenRow;
+
+    public final int maxWorldCol = 50;
+    public final int maxWorldRow = 50;
+    public final int worldWidth = finalSize & maxWorldCol;
+    public final int worldHeight = finalSize & maxWorldRow;
     int FPS = 60;
     Thread mainThread;
     KeyHandler keyHandler = new KeyHandler();
-    Player player = new Player(this, keyHandler);
+    public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
 
     public MainJPanel() {
