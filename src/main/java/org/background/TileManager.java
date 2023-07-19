@@ -28,15 +28,15 @@ public class TileManager {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
             int col = 0;
             int row = 0;
-            while(col<gp.maxWorldCol && row<gp.maxWorldRow){
+            while (col < gp.maxWorldCol && row < gp.maxWorldRow) {
                 String line = bufferedReader.readLine();
-                while (col<gp.maxWorldCol){
+                while (col < gp.maxWorldCol) {
                     String number[] = line.split(" ");
                     int num = Integer.parseInt(number[col]);
                     mapTileNumber[col][row] = num;
                     col++;
                 }
-                if(col==gp.maxWorldCol){
+                if (col == gp.maxWorldCol) {
                     col = 0;
                     row++;
                 }
@@ -68,7 +68,12 @@ public class TileManager {
             int worldY = worldRow * gp.finalSize;
             int screenX = worldX - gp.player.worldX + gp.player.screenX;
             int screenY = worldY - gp.player.worldY + gp.player.screenY;
-            g2.drawImage(tile[tileNum].image, screenX, screenY, gp.finalSize, gp.finalSize, null);
+            if (worldX + gp.finalSize > gp.player.worldX - gp.player.screenX &&
+                    worldX - gp.finalSize< gp.player.worldX + gp.player.screenX &&
+                    worldY + gp.finalSize> gp.player.worldY - gp.player.screenY &&
+                    worldY - gp.finalSize< gp.player.worldY + gp.player.screenY) {
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.finalSize, gp.finalSize, null);
+            }
             worldCol++;
             if (worldCol == gp.maxWorldCol) {
                 worldCol = 0;
