@@ -13,8 +13,8 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int finalSize = originalTileSize * scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
-    final int screenWidth = finalSize * maxScreenCol;
-    final int screenHeight = finalSize * maxScreenRow;
+    public final int screenWidth = finalSize * maxScreenCol;
+    public final int screenHeight = finalSize * maxScreenRow;
     int FPS = 60;
     Thread mainThread;
     KeyHandler keyHandler = new KeyHandler();

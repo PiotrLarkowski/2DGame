@@ -12,6 +12,19 @@ public class Player extends Entity {
     MainJPanel gp;
     KeyHandler keyHandler;
 
+    public final int screenX;
+    public final int screenY;
+
+    public Player(MainJPanel gp, KeyHandler keyHandler) {
+        this.gp = gp;
+        this.keyHandler = keyHandler;
+        setDefaultValues();
+        getPlayerImages();
+
+        screenX = gp.screenWidth/2;
+        screenY = gp.screenHeight/2;
+    }
+
     public void getPlayerImages() {
         try {
             up1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerUp1.png")));
@@ -27,17 +40,9 @@ public class Player extends Entity {
             e.printStackTrace();
         }
     }
-
-    public Player(MainJPanel gp, KeyHandler keyHandler) {
-        this.gp = gp;
-        this.keyHandler = keyHandler;
-        setDefaultValues();
-        getPlayerImages();
-    }
-
     public void setDefaultValues() {
-        x = 100;
-        y = 100;
+        worldX = 48;
+        worldY = 48;
         speed = 4;
         direction = "down";
     }
@@ -46,16 +51,16 @@ public class Player extends Entity {
         if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             } else if (keyHandler.downPressed) {
                 direction = "down";
-                y += speed;
+                worldY += speed;
             } else if (keyHandler.leftPressed) {
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             } else if (keyHandler.rightPressed) {
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
             spriteCounter++;
             if (spriteCounter > 20) {
@@ -105,6 +110,6 @@ public class Player extends Entity {
                 }
                 break;
         }
-        g2.drawImage(image, x, y, gp.finalSize, gp.finalSize, null);
+        g2.drawImage(image, screenX, screenY, gp.finalSize, gp.finalSize, null);
     }
 }
