@@ -1,5 +1,6 @@
 package org.example;
 
+import org.background.TileManager;
 import org.entity.Player;
 
 import javax.swing.*;
@@ -18,9 +19,7 @@ public class MainJPanel extends JPanel implements Runnable {
     Thread mainThread;
     KeyHandler keyHandler = new KeyHandler();
     Player player = new Player(this, keyHandler);
-    int playerX = 100;
-    int playerY = 100;
-    int playerSpeed = 4;
+    TileManager tileManager = new TileManager(this);
 
     public MainJPanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -60,6 +59,7 @@ public class MainJPanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
+        tileManager.draw(g2);
         player.draw(g2);
         g2.dispose();
     }

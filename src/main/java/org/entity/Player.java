@@ -58,7 +58,7 @@ public class Player extends Entity {
                 x += speed;
             }
             spriteCounter++;
-            if (spriteCounter > 30) {
+            if (spriteCounter > 20) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
@@ -66,8 +66,6 @@ public class Player extends Entity {
                 }
                 spriteCounter = 0;
             }
-        }else{
-            direction = "imgDef";
         }
     }
 
@@ -106,8 +104,6 @@ public class Player extends Entity {
                     image = right2;
                 }
                 break;
-            case "imgDef":
-                image = imgDef;
         }
         g2.drawImage(image, x, y, gp.finalSize, gp.finalSize, null);
     }
