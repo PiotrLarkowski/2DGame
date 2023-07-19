@@ -69,26 +69,46 @@ public class CollisionChecker {
                 switch (entity.direction) {
                     case "up":
                         entity.solidArea.y -= entity.speed;
-                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
-                            System.out.println("up collision");
+                        if (entity.solidArea.intersects(gp.object[i].solidArea)) {
+                            if (gp.object[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index=i;
+                            }
                         }
                         break;
                     case "down":
                         entity.solidArea.y += entity.speed;
-                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
-                            System.out.println("down collision");
+                        if (entity.solidArea.intersects(gp.object[i].solidArea)) {
+                            if (gp.object[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index=i;
+                            }
                         }
                         break;
                     case "left":
                         entity.solidArea.x -= entity.speed;
-                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
-                            System.out.println("left collision");
+                        if (entity.solidArea.intersects(gp.object[i].solidArea)) {
+                            if (gp.object[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index=i;
+                            }
                         }
                         break;
                     case "right":
                         entity.solidArea.x += entity.speed;
-                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
-                            System.out.println("right collision");
+                        if (entity.solidArea.intersects(gp.object[i].solidArea)) {
+                            if (gp.object[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player){
+                                index=i;
+                            }
                         }
                         break;
                 }

@@ -14,6 +14,7 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
+    int spellRemove = 0;
 
     public Player(MainJPanel gp, KeyHandler keyHandler) {
         this.gp = gp;
@@ -67,6 +68,7 @@ public class Player extends Entity {
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
             int objectIndex = gp.collisionChecker.checkObject(this, true);
+            pickUpObject(objectIndex);
             if (!collisionOn) {
                 switch (direction) {
                     case "up":
@@ -91,6 +93,33 @@ public class Player extends Entity {
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            String objectName = gp.object[i].name;
+            switch (objectName) {
+                case "Book":
+                    gp.object[i] = null;
+                    spellRemove++;
+                    System.out.println("Got " + spellRemove+" block remove");
+                    break;
+                case "Chest":
+                    break;
+                case "Turnstile":
+                    for (int j = 0; j < gp.object.length; j++) {
+                        if (gp.object[j] != null) {
+                            int connectGateTurnstile = gp.object[j].connectGateTurnstile;
+                            if (connectGateTurnstile == gp.object[i].connectGateTurnstile &&
+                                    gp.object[j].name.equals("Gate")) {
+                                gp.object[j] = null;
+                                break;
+                            }
+                        }
+                    }
+                    break;
             }
         }
     }
