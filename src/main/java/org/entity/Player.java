@@ -19,6 +19,8 @@ public class Player extends Entity {
         this.gp = gp;
         this.keyHandler = keyHandler;
         solidArea = new Rectangle(8, 16, 32, 32);
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         setDefaultValues();
         getPlayerImages();
 
@@ -64,6 +66,7 @@ public class Player extends Entity {
             }
             collisionOn = false;
             gp.collisionChecker.checkTile(this);
+            int objectIndex = gp.collisionChecker.checkObject(this, true);
             if (!collisionOn) {
                 switch (direction) {
                     case "up":

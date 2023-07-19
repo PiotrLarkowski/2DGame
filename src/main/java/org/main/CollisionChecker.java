@@ -57,4 +57,47 @@ public class CollisionChecker {
                 break;
         }
     }
+
+    public int checkObject(Entity entity, boolean player) {
+        int index = 999;
+        for (int i = 0; i < gp.object.length; i++) {
+            if (gp.object[i] != null) {
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                gp.object[i].solidArea.x = gp.object[i].worldX + gp.object[i].solidArea.x;
+                gp.object[i].solidArea.y = gp.object[i].worldY + gp.object[i].solidArea.y;
+                switch (entity.direction) {
+                    case "up":
+                        entity.solidArea.y -= entity.speed;
+                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
+                            System.out.println("up collision");
+                        }
+                        break;
+                    case "down":
+                        entity.solidArea.y += entity.speed;
+                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
+                            System.out.println("down collision");
+                        }
+                        break;
+                    case "left":
+                        entity.solidArea.x -= entity.speed;
+                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
+                            System.out.println("left collision");
+                        }
+                        break;
+                    case "right":
+                        entity.solidArea.x += entity.speed;
+                        if(entity.solidArea.intersects(gp.object[i].solidArea)){
+                            System.out.println("right collision");
+                        }
+                        break;
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.object[i].solidArea.x = gp.object[i].solidAreaDefaultX;
+                gp.object[i].solidArea.y = gp.object[i].solidAreaDefaultY;
+            }
+        }
+        return index;
+    }
 }
