@@ -11,8 +11,8 @@ public class MainJPanel extends JPanel implements Runnable {
     final int scale = 3;
 
     public final int finalSize = originalTileSize * scale;
-    final int maxScreenCol = 16;
-    final int maxScreenRow = 12;
+    public final int maxScreenCol = 16;
+    public final int maxScreenRow = 12;
     final int screenWidth = finalSize * maxScreenCol;
     final int screenHeight = finalSize * maxScreenRow;
     int FPS = 60;

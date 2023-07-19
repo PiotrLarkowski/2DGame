@@ -24,10 +24,20 @@ public class TileManager {
         }
     }
     public void draw(Graphics2D g2){
-        for (int i = 0; i < 12; i++) {
-            for (int j = 0; j < 16; j++) {
-                g2.drawImage(tile[0].image,j*48,i*48,gp.finalSize,gp.finalSize,null);
-            }
-        }
+        int col = 0;
+        int row =0;
+        int x = 0;
+        int y = 0;
+         while(col <gp.maxScreenCol && row < gp.maxScreenRow){
+             g2.drawImage(tile[0].image,x,y,gp.finalSize,gp.finalSize,null);
+             col++;
+             x += gp.finalSize;
+             if(col == gp.maxScreenCol){
+                 col = 0;
+                 x = 0;
+                 row++;
+                 y+=gp.finalSize;
+             }
+         }
     }
 }
