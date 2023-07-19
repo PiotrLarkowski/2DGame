@@ -1,4 +1,4 @@
-package org.example;
+package org.main;
 
 import org.background.TileManager;
 import org.entity.Player;
@@ -23,6 +23,7 @@ public class MainJPanel extends JPanel implements Runnable {
     int FPS = 60;
     Thread mainThread;
     KeyHandler keyHandler = new KeyHandler();
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
 

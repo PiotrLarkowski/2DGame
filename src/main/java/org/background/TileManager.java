@@ -1,6 +1,6 @@
 package org.background;
 
-import org.example.MainJPanel;
+import org.main.MainJPanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -10,9 +10,9 @@ import java.io.InputStreamReader;
 
 public class TileManager {
     MainJPanel gp;
-    Tile[] tile;
+    public Tile[] tile;
 
-    int mapTileNumber[][];
+    public int mapTileNumber[][];
 
     public TileManager(MainJPanel mainJPanel) {
         this.gp = mainJPanel;
@@ -53,6 +53,7 @@ public class TileManager {
             tile[0].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/flor.png"));
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/wall.png"));
+            tile[1].collision = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
