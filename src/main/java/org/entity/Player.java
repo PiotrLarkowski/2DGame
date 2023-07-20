@@ -134,6 +134,7 @@ public class Player extends Entity {
                             }
                         }
                     }
+                    gp.ui.showMessage("You hear open some gate");
                     break;
             }
         }

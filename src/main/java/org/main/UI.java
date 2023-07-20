@@ -14,6 +14,7 @@ public class UI {
     BufferedImage bufferedImageBackground;
     public boolean messageOn = false;
     public String message;
+    boolean levelFinished = false;
     int messageCounter = 0;
     public UI(MainJPanel gp) throws IOException {
         this.gp = gp;
@@ -37,7 +38,7 @@ public class UI {
             g2.setFont(g2.getFont().deriveFont(30F));
             g2.drawString(message,(gp.finalSize*2)+100,gp.finalSize+40);
             messageCounter++;
-            if(messageCounter > 100){
+            if(messageCounter > 120){
                 messageCounter=0;
                 messageOn=false;
             }
