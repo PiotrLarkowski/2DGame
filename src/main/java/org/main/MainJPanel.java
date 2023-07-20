@@ -4,6 +4,7 @@ import org.background.TileManager;
 import org.entity.Player;
 import org.objects.SuperObject;
 
+import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 
@@ -36,7 +37,7 @@ public class MainJPanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
     public void setUpGame(){
-//        playMusic(0);
+        playMusic(0);
         assetSetter.setObjects();
     }
     public void startGameThread() {
@@ -80,6 +81,9 @@ public class MainJPanel extends JPanel implements Runnable {
     }
     public void playMusic(int i){
         sound.setFile(i);
+        FloatControl gainControl =
+                (FloatControl) sound.clip.getControl(FloatControl.Type.MASTER_GAIN);
+        gainControl.setValue(-20.0f);
         sound.play();
         sound.loop();
     }

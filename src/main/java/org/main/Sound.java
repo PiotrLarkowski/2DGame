@@ -10,12 +10,13 @@ public class Sound {
     URL soundUrl[] = new URL[10];
 
     public Sound() {
+        soundUrl[0] = getClass().getResource("/sounds/mainTheme.wav");
         soundUrl[1] = getClass().getResource("/sounds/openGate.wav");
     }
 
     public void setFile(int i) {
         try {
-            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundUrl[1]);
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundUrl[i]);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
         } catch (Exception e) {
