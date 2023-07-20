@@ -14,7 +14,8 @@ public class Player extends Entity {
 
     public final int screenX;
     public final int screenY;
-    int spellRemove = 0;
+    public int spellRemove = 0;
+    boolean eventQueue[] = new boolean[10];
 
     public Player(MainJPanel gp, KeyHandler keyHandler) {
         this.gp = gp;
@@ -31,23 +32,27 @@ public class Player extends Entity {
 
     public void getPlayerImages() {
         try {
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerUp1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerUp2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerDown1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerDown2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerLeft1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerLeft2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerRight1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerRight2.png")));
-            imgDef = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/playerDefault.png")));
+
+            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/up1.png")));
+            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/up2.png")));
+            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/down1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/down2.png")));
+            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/left1.png")));
+            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/left2.png")));
+            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/right1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/right2.png")));
+
+            imgDef1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultDown.png")));
+            imgDef2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultRight.png")));
+            imgDef3 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultLeft.png")));
+            imgDef4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultUp.png")));
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void setDefaultValues() {
-//        worldX = gp.screenWidth/2;
-//        worldY = gp.screenHeight/2;
         worldX = 48;
         worldY = 48;
         speed = 4;
@@ -84,9 +89,18 @@ public class Player extends Entity {
                         worldX += speed;
                         break;
                 }
+                System.out.println("WorldX:" + worldX + ",WorldY: " + worldY);
+                if (!eventQueue[0] && (worldX>48 || worldY>48)) {
+                    eventQueue[0] = true;
+                    gp.ui.showMessage("Where I'm?");
+                }
+                if(!eventQueue[1] && (worldX>87&&worldX<101)&&worldY==180){
+                    eventQueue[1] = true;
+                    gp.ui.showMessage("I need to get out of here!");
+                }
             }
             spriteCounter++;
-            if (spriteCounter > 20) {
+            if (spriteCounter > 10) {
                 if (spriteNum == 1) {
                     spriteNum = 2;
                 } else if (spriteNum == 2) {
@@ -104,7 +118,7 @@ public class Player extends Entity {
                 case "Book":
                     gp.object[i] = null;
                     spellRemove++;
-                    System.out.println("Got " + spellRemove+" block remove");
+                    gp.ui.showMessage("You got a book");
                     break;
                 case "Chest":
                     break;

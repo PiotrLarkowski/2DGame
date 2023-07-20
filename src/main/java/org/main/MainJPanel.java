@@ -7,10 +7,11 @@ import org.objects.SuperObject;
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
 
 public class MainJPanel extends JPanel implements Runnable {
-    final int originalTileSize = 16;
-    final int scale = 3;
+    final int originalTileSize = 48;
+    final int scale = 1;
 
     public final int finalSize = originalTileSize * scale;
     public final int maxScreenCol = 16;
@@ -21,15 +22,17 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     int FPS = 60;
-    Sound sound = new Sound();
+    Sound music = new Sound();
+    Sound soundEffect = new Sound();
     KeyHandler keyHandler = new KeyHandler();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
+    public UI ui = new UI(this);
     Thread mainThread;
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
     public SuperObject object[] = new SuperObject[10];
-    public MainJPanel() {
+    public MainJPanel() throws IOException {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -77,21 +80,22 @@ public class MainJPanel extends JPanel implements Runnable {
             }
         }
         player.draw(g2);
+        ui.draw(g2);
         g2.dispose();
     }
     public void playMusic(int i){
-        sound.setFile(i);
+        music.setFile(i);
         FloatControl gainControl =
-                (FloatControl) sound.clip.getControl(FloatControl.Type.MASTER_GAIN);
+                (FloatControl) music.clip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(-20.0f);
-        sound.play();
-        sound.loop();
+        music.play();
+        music.loop();
     }
     public void stopMusic(){
-        sound.stop();
+        music.stop();
     }
     public void playEventMusic(int i){
-        sound.setFile(i);
-        sound.play();
+        soundEffect.setFile(i);
+        soundEffect.play();
     }
 }
