@@ -114,6 +114,7 @@ public class Player extends Entity {
                             int connectGateTurnstile = gp.object[j].connectGateTurnstile;
                             if (connectGateTurnstile == gp.object[i].connectGateTurnstile &&
                                     gp.object[j].name.equals("Gate")) {
+                                gp.playEventMusic(1);
                                 gp.object[j] = null;
                                 break;
                             }
