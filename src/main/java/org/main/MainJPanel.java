@@ -26,6 +26,7 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int endState = 3;
+    public boolean themePlay = false;
     int FPS = 60;
     Sound music = new Sound();
     Sound soundEffect = new Sound();
@@ -46,7 +47,6 @@ public class MainJPanel extends JPanel implements Runnable {
         this.setFocusable(true);
     }
     public void setUpGame(){
-        playMusic(0);
         assetSetter.setObjects();
         gameState=playState;
     }
@@ -96,6 +96,7 @@ public class MainJPanel extends JPanel implements Runnable {
         g2.dispose();
     }
     public void playMusic(int i){
+        themePlay = true;
         music.setFile(i);
         FloatControl gainControl =
                 (FloatControl) music.clip.getControl(FloatControl.Type.MASTER_GAIN);
@@ -104,6 +105,7 @@ public class MainJPanel extends JPanel implements Runnable {
         music.loop();
     }
     public void stopMusic(){
+        themePlay = false;
         music.stop();
     }
     public void playEventMusic(int i){
