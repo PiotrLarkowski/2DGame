@@ -60,55 +60,73 @@ public class Player extends Entity {
     }
 
     public void update() {
-        if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
-            if (keyHandler.upPressed) {
-                direction = "up";
-            } else if (keyHandler.downPressed) {
-                direction = "down";
-            } else if (keyHandler.leftPressed) {
-                direction = "left";
-            } else if (keyHandler.rightPressed) {
-                direction = "right";
-            }
-            collisionOn = false;
-            gp.collisionChecker.checkTile(this);
-            int objectIndex = gp.collisionChecker.checkObject(this, true);
-            pickUpObject(objectIndex);
-            if (!collisionOn) {
-                switch (direction) {
-                    case "up":
-                        worldY -= speed;
-                        break;
-                    case "down":
-                        worldY += speed;
-                        break;
-                    case "left":
-                        worldX -= speed;
-                        break;
-                    case "right":
-                        worldX += speed;
-                        break;
+        if (!gp.gameEnd) {
+            if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
+                if (keyHandler.upPressed) {
+                    direction = "up";
+                } else if (keyHandler.downPressed) {
+                    direction = "down";
+                } else if (keyHandler.leftPressed) {
+                    direction = "left";
+                } else if (keyHandler.rightPressed) {
+                    direction = "right";
                 }
-                System.out.println("WorldX:" + worldX + ",WorldY: " + worldY);
-                if (!eventQueue[0] && (worldX>48 || worldY>48)) {
-                    eventQueue[0] = true;
-                    gp.ui.showMessage("Where I'm?");
+                collisionOn = false;
+                gp.collisionChecker.checkTile(this);
+                int objectIndex = gp.collisionChecker.checkObject(this, true);
+                pickUpObject(objectIndex);
+                if (!collisionOn) {
+                    switch (direction) {
+                        case "up":
+                            worldY -= speed;
+                            break;
+                        case "down":
+                            worldY += speed;
+                            break;
+                        case "left":
+                            worldX -= speed;
+                            break;
+                        case "right":
+                            worldX += speed;
+                            break;
+                    }
+                    System.out.println("WorldX:" + worldX + ",WorldY: " + worldY);
+                    if (!eventQueue[0] && (worldX > 48 || worldY > 48)) {
+                        eventQueue[0] = true;
+                        gp.ui.showMessage("Where I'm?");
+                    }
+                    if (!eventQueue[1] && (worldX > 87 && worldX < 101) && worldY == 180) {
+                        eventQueue[1] = true;
+                        gp.ui.showMessage("I need to get out of here!");
+                    }
+                    if (!eventQueue[2] && (worldX > 1000 || worldY > 1000)) {
+                        eventQueue[2] = true;
+                        gp.ui.showMessage("And what is that robe?!");
+                    }
+                    if (!eventQueue[3] && (worldX > 1500 || worldY > 1000)) {
+                        eventQueue[3] = true;
+                        gp.ui.showMessage("I thought I saw a rat");
+                    }
+                    if (!eventQueue[9] && (worldX > 2241 && worldX < 2261) && worldY > 2315) {
+                        eventQueue[9] = true;
+                        gp.ui.showMessage("Finally!");
+                        gp.gameEnd = true;
+                        gp.stopMusic();
+                        gp.stopGameThread();
+                    }
                 }
-                if(!eventQueue[1] && (worldX>87&&worldX<101)&&worldY==180){
-                    eventQueue[1] = true;
-                    gp.ui.showMessage("I need to get out of here!");
+                spriteCounter++;
+                if (spriteCounter > 10) {
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
                 }
-            }
-            spriteCounter++;
-            if (spriteCounter > 10) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
-                }
-                spriteCounter = 0;
             }
         }
+
     }
 
     public void pickUpObject(int i) {

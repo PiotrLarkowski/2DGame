@@ -12,6 +12,7 @@ import java.io.IOException;
 public class MainJPanel extends JPanel implements Runnable {
     final int originalTileSize = 48;
     final int scale = 1;
+    public boolean gameEnd = false;
 
     public final int finalSize = originalTileSize * scale;
     public final int maxScreenCol = 16;
@@ -46,6 +47,9 @@ public class MainJPanel extends JPanel implements Runnable {
     public void startGameThread() {
         mainThread = new Thread(this);
         mainThread.start();
+    }
+    public void stopGameThread(){
+        mainThread.interrupt();
     }
 
     @Override
