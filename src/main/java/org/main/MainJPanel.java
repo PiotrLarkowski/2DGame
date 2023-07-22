@@ -12,7 +12,6 @@ import java.io.IOException;
 public class MainJPanel extends JPanel implements Runnable {
     final int originalTileSize = 48;
     final int scale = 1;
-    public boolean gameEnd = false;
 
     public final int finalSize = originalTileSize * scale;
     public final int maxScreenCol = 16;
@@ -26,6 +25,7 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int menuState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
+    public final int endState = 3;
     int FPS = 60;
     Sound music = new Sound();
     Sound soundEffect = new Sound();

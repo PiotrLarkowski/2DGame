@@ -11,6 +11,7 @@ public class UI {
     MainJPanel gp;
     Font arial_40;
     BufferedImage bufferedImageBackground;
+    Graphics2D g2;
     public boolean messageOn = false;
     public String message;
     boolean levelFinished = false;
@@ -25,21 +26,27 @@ public class UI {
         messageOn = true;
     }
     public void draw (Graphics2D g2){
+        this.g2 = g2;
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
-        if(messageOn){
-            g2.setColor(Color.black);
-            g2.drawImage(bufferedImageBackground, (gp.finalSize*2)+80, 25,gp.screenWidth - 25-((gp.finalSize*2)+80),gp.finalSize*2,null);
-            g2.setFont(g2.getFont().deriveFont(30F));
-            g2.drawString(message,(gp.finalSize*2)+100,gp.finalSize+40);
-            messageCounter++;
-            if(messageCounter > 120){
-                messageCounter=0;
-                messageOn=false;
+        if(gp.gameState == gp.playState){
+            if(messageOn){
+                g2.setColor(Color.black);
+                g2.drawImage(bufferedImageBackground, (gp.finalSize*2)+80, 25,gp.screenWidth - 25-((gp.finalSize*2)+80),gp.finalSize*2,null);
+                g2.setFont(g2.getFont().deriveFont(30F));
+                g2.drawString(message,(gp.finalSize*2)+100,gp.finalSize+40);
+                messageCounter++;
+                if(messageCounter > 120){
+                    messageCounter=0;
+                    messageOn=false;
+                }
             }
-        }
-        if(gp.gameEnd){
+        }else if(gp.gameState == gp.pauseState){
+
+        }else if(gp.gameState == gp.endState){
             endGameMessage(g2);
+            gp.stopMusic();
+            gp.stopGameThread();
         }
     }
 
