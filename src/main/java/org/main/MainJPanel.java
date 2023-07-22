@@ -22,10 +22,14 @@ public class MainJPanel extends JPanel implements Runnable {
 
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    public int gameState = 0;
+    public final int menuState = 0;
+    public final int playState = 1;
+    public final int pauseState = 2;
     int FPS = 60;
     Sound music = new Sound();
     Sound soundEffect = new Sound();
-    KeyHandler keyHandler = new KeyHandler();
+    KeyHandler keyHandler = new KeyHandler(this);
     public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
@@ -35,6 +39,7 @@ public class MainJPanel extends JPanel implements Runnable {
     public SuperObject object[] = new SuperObject[10];
     public MainJPanel() throws IOException {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+//        this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
@@ -43,6 +48,7 @@ public class MainJPanel extends JPanel implements Runnable {
     public void setUpGame(){
         playMusic(0);
         assetSetter.setObjects();
+        gameState=playState;
     }
     public void startGameThread() {
         mainThread = new Thread(this);
@@ -71,7 +77,9 @@ public class MainJPanel extends JPanel implements Runnable {
     }
 
     public void update() {
-        player.update();
+        if(gameState == playState) {
+            player.update();
+        }
     }
 
     public void paintComponent(Graphics g) {

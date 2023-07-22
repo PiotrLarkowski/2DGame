@@ -10,7 +10,6 @@ import java.io.IOException;
 public class UI {
     MainJPanel gp;
     Font arial_40;
-    BufferedImage bufferedImage;
     BufferedImage bufferedImageBackground;
     public boolean messageOn = false;
     public String message;
@@ -19,8 +18,6 @@ public class UI {
     public UI(MainJPanel gp) throws IOException {
         this.gp = gp;
         arial_40 = new Font("Arial",Font.PLAIN,40);
-        ObjectBook bookImage= new ObjectBook();
-        bufferedImage = bookImage.image;
         bufferedImageBackground = ImageIO.read(getClass().getResourceAsStream("/objects/messageBackground.png"));
     }
     public void showMessage(String text){
@@ -30,8 +27,6 @@ public class UI {
     public void draw (Graphics2D g2){
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
-        g2.drawImage(bufferedImage, gp.finalSize, 45,gp.finalSize,gp.finalSize,null);
-        g2.drawString("x "+gp.player.spellRemove,(gp.finalSize*2)+20,gp.finalSize+40);
         if(messageOn){
             g2.setColor(Color.black);
             g2.drawImage(bufferedImageBackground, (gp.finalSize*2)+80, 25,gp.screenWidth - 25-((gp.finalSize*2)+80),gp.finalSize*2,null);
@@ -43,5 +38,18 @@ public class UI {
                 messageOn=false;
             }
         }
+        if(gp.gameEnd){
+            endGameMessage(g2);
+        }
+    }
+
+    private void endGameMessage(Graphics2D g2) {
+        g2.setColor(Color.YELLOW);
+        g2.setFont(new Font("arial_80B",Font.BOLD,44));
+        String text = "LEVEL COMPLETED";
+        int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
+        g2.drawImage(bufferedImageBackground, (gp.screenWidth/2 - textLength/2)-20, (gp.screenHeight/2)-gp.finalSize-10,textLength+40,(gp.finalSize*2)+40,null);
+        g2.drawString(text,(gp.screenWidth/2 - textLength/2),(gp.screenHeight/2));
+        g2.drawString("CONGRATULATIONS",(gp.screenWidth/2 - textLength/2)-10,(gp.screenHeight/2)+40);
     }
 }
