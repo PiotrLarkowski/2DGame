@@ -6,6 +6,7 @@ import org.main.MainJPanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.time.Instant;
 import java.util.Objects;
 
 public class Player extends Entity {
@@ -60,6 +61,7 @@ public class Player extends Entity {
     }
 
     public void update() {
+        playerSeyMessage();
         if (keyHandler.downPressed || keyHandler.upPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
             if (keyHandler.upPressed) {
                 direction = "up";
@@ -90,27 +92,6 @@ public class Player extends Entity {
                         break;
                 }
                 System.out.println("WorldX:" + worldX + ",WorldY: " + worldY);
-                if (!eventQueue[0] && (worldX > 48 || worldY > 48)) {
-                    eventQueue[0] = true;
-                    gp.ui.showMessage("Where I'm?");
-                }
-                if (!eventQueue[1] && (worldX > 87 && worldX < 101) && worldY == 180) {
-                    eventQueue[1] = true;
-                    gp.ui.showMessage("I need to get out of here!");
-                }
-                if (!eventQueue[2] && (worldX > 1000 || worldY > 1000)) {
-                    eventQueue[2] = true;
-                    gp.ui.showMessage("And what is that robe?!");
-                }
-                if (!eventQueue[3] && (worldX > 1500 || worldY > 1000)) {
-                    eventQueue[3] = true;
-                    gp.ui.showMessage("I thought I saw a rat");
-                }
-                if (!eventQueue[9] && (worldX > 2241 && worldX < 2261) && worldY > 2315) {
-                    eventQueue[9] = true;
-                    gp.ui.showMessage("Finally!");
-                    gp.gameState = gp.endState;
-                }
             }
             spriteCounter++;
             if (spriteCounter > 10) {
@@ -124,6 +105,37 @@ public class Player extends Entity {
         }
     }
 
+    private void playerSeyMessage() {
+        if (!eventQueue[0] &&getSecondOfPlay()>2) {
+            eventQueue[0] = true;
+            gp.ui.showMessage("Where I'm?");
+        }
+        if (!eventQueue[1] && (worldX > 87 && worldX < 101) && worldY == 180) {
+            eventQueue[1] = true;
+            gp.ui.showMessage("I need to get out of here!");
+        }
+        if (!eventQueue[2] && getSecondOfPlay()>10) {
+            eventQueue[2] = true;
+            gp.ui.showMessage("And what is that robe?!");
+        }
+        if (!eventQueue[3] && getSecondOfPlay()>25) {
+            eventQueue[3] = true;
+            gp.ui.showMessage("I thought I saw a rat");
+        }
+        if (!eventQueue[3] && getSecondOfPlay()>40) {
+            eventQueue[3] = true;
+            gp.ui.showMessage("I could get lost...");
+        }
+        if (!eventQueue[9] && (worldX > 2241 && worldX < 2261) && worldY > 2315) {
+            eventQueue[9] = true;
+            gp.ui.showMessage("Finally!");
+            gp.gameState = gp.endState;
+        }
+    }
+
+    public long getSecondOfPlay(){
+        return (gp.currentTime-gp.timeGameStarted)/1000;
+    }
     public void pickUpObject(int i) {
         if (i != 999) {
             String objectName = gp.object[i].name;

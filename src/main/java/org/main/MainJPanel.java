@@ -21,6 +21,8 @@ public class MainJPanel extends JPanel implements Runnable {
 
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
+    public long timeGameStarted = System.currentTimeMillis();
+    public long currentTime;
     public int gameState = 0;
     public final int menuState = 0;
     public final int playState = 1;
@@ -78,6 +80,7 @@ public class MainJPanel extends JPanel implements Runnable {
 
     public void update() {
         if(gameState == playState) {
+            currentTime = System.currentTimeMillis();
             player.update();
         }
     }

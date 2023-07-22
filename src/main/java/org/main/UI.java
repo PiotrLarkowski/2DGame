@@ -33,10 +33,10 @@ public class UI {
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
         if (gp.gameState == gp.playState) {
+            if(!gp.themePlay){
+                gp.playMusic(0);
+            }
             if (messageOn) {
-                if(!gp.themePlay){
-                    gp.playMusic(0);
-                }
                 g2.setColor(Color.black);
                 g2.drawImage(bufferedImageBackground, (gp.finalSize * 2) + 80, 25, gp.screenWidth - 25 - ((gp.finalSize * 2) + 80), gp.finalSize * 2, null);
                 g2.setFont(g2.getFont().deriveFont(30F));
@@ -58,6 +58,7 @@ public class UI {
     }
 
     public void drawPauseScreen() {
+        g2.setColor(Color.BLACK);
         drawInCenterOfScreen( "PAUSE");
     }
 
