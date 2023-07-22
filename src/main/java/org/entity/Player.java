@@ -122,13 +122,15 @@ public class Player extends Entity {
             eventQueue[3] = true;
             gp.ui.showMessage("I thought I saw a rat");
         }
-        if (!eventQueue[3] && getSecondOfPlay()>40) {
-            eventQueue[3] = true;
+        if (!eventQueue[4] && getSecondOfPlay()>40) {
+            eventQueue[4] = true;
             gp.ui.showMessage("I could get lost...");
         }
-        if (!eventQueue[9] && (worldX > 2241 && worldX < 2261) && worldY > 2315) {
+        if (!eventQueue[9] && (worldX > 2241 && worldX < 2261) && worldY > 2250) {
             eventQueue[9] = true;
             gp.ui.showMessage("Finally!");
+        }
+        if(worldX > 2241 && worldX < 2261 && worldY > 2300){
             gp.gameState = gp.endState;
         }
     }
