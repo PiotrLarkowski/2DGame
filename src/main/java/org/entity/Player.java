@@ -6,11 +6,9 @@ import org.main.MainJPanel;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.time.Instant;
 import java.util.Objects;
 
 public class Player extends Entity {
-    MainJPanel gp;
     KeyHandler keyHandler;
 
     public final int screenX;
@@ -19,7 +17,7 @@ public class Player extends Entity {
     boolean eventQueue[] = new boolean[10];
 
     public Player(MainJPanel gp, KeyHandler keyHandler) {
-        this.gp = gp;
+        super(gp);
         this.keyHandler = keyHandler;
         solidArea = new Rectangle(8, 16, 32, 32);
         solidAreaDefaultX = solidArea.x;
@@ -30,29 +28,21 @@ public class Player extends Entity {
         screenX = gp.screenWidth / 2;
         screenY = gp.screenHeight / 2;
     }
-
     public void getPlayerImages() {
-        try {
+        up1 = setup("/player/novice/up1");
+        up2 = setup("/player/novice/up2");
+        down1 = setup("/player/novice/down1");
+        down2 = setup("/player/novice/down2");
+        left1 = setup("/player/novice/left1");
+        left2 = setup("/player/novice/left2");
+        right1 = setup("/player/novice/right1");
+        right2 = setup("/player/novice/right2");
 
-            up1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/up1.png")));
-            up2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/up2.png")));
-            down1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/down1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/down2.png")));
-            left1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/left1.png")));
-            left2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/left2.png")));
-            right1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/right1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/right2.png")));
-
-            imgDef1 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultDown.png")));
-            imgDef2 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultRight.png")));
-            imgDef3 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultLeft.png")));
-            imgDef4 = ImageIO.read(Objects.requireNonNull(getClass().getResource("/player/novice/defaultUp.png")));
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        imgDef1 = setup("/player/novice/defaultDown");
+        imgDef2 = setup("/player/novice/defaultRight");
+        imgDef3 = setup("/player/novice/defaultLeft");
+        imgDef4 = setup("/player/novice/defaultUp");
     }
-
     public void setDefaultValues() {
         worldX = 48;
         worldY = 48;
