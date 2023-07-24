@@ -1,5 +1,6 @@
 package org.main;
 
+import org.entity.npcGoblin;
 import org.entity.npcRedMage;
 import org.objects.ObjectBook;
 import org.objects.ObjectGate;
@@ -28,7 +29,7 @@ public class AssetSetter {
         gp.object[3].worldY = 3 * gp.finalSize;
     }
     public void setNPC(){
-        gp.npcArray[0] = new npcRedMage(gp);
+        gp.npcArray[0] = new npcGoblin(gp);
         gp.npcArray[0].worldX = gp.finalSize*2;
         gp.npcArray[0].worldY = gp.finalSize*2;
     }
