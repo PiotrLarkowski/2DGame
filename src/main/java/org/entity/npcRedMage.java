@@ -2,15 +2,17 @@ package org.entity;
 
 import org.main.MainJPanel;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.util.Objects;
+import java.util.Random;
 
-public class npcRedMage extends Entity {
+public class npcRedMage extends ObjectEntity {
     public npcRedMage(MainJPanel gp) {
         super(gp);
+
+        direction = "left";
+        speed = 4;
+        getImages();
     }
-    public void getPlayerImages() {
+    public void getImages() {
         up1 = setup("/player/opponent/redMage/up1");
         up2 = setup("/player/opponent/redMage/up2");
         down1 = setup("/player/opponent/redMage/down1");
@@ -24,5 +26,22 @@ public class npcRedMage extends Entity {
         imgDef2 = setup("/player/opponent/redMage/defaultRight");
         imgDef3 = setup("/player/opponent/redMage/defaultLeft");
         imgDef4 = setup("/player/opponent/redMage/defaultUp");
+    }
+    public void setAction(){
+        Random random = new Random();
+        actionLockCounter++;
+        if(actionLockCounter == 60){
+            int i = random.nextInt(100)+1;
+            if(i<=35){
+                direction = "up";
+            }else if(i>35&&i<=50){
+                direction = "right";
+            }else if(i>50&&i<=70){
+                direction = "left";
+            }else if(i>70&&i<=90){
+                direction = "down";
+            }
+            actionLockCounter = 0;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package org.main;
 
+import org.entity.npcRedMage;
 import org.objects.ObjectBook;
 import org.objects.ObjectGate;
 import org.objects.ObjectTurnstile;
@@ -25,5 +26,10 @@ public class AssetSetter {
         gp.object[3] = new ObjectTurnstile(1);
         gp.object[3].worldX = 4 * gp.finalSize;
         gp.object[3].worldY = 3 * gp.finalSize;
+    }
+    public void setNPC(){
+        gp.npcArray[0] = new npcRedMage(gp);
+        gp.npcArray[0].worldX = gp.finalSize*2;
+        gp.npcArray[0].worldY = gp.finalSize*2;
     }
 }

@@ -3,6 +3,7 @@ package org.main;
 import org.background.TileManager;
 import org.entity.Player;
 import org.objects.SuperObject;
+import org.entity.*;
 
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
@@ -40,6 +41,7 @@ public class MainJPanel extends JPanel implements Runnable {
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
     public SuperObject object[] = new SuperObject[10];
+    public ObjectEntity[] npcArray = new ObjectEntity[10];
     public MainJPanel() throws IOException {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 //        this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height));
@@ -50,6 +52,7 @@ public class MainJPanel extends JPanel implements Runnable {
     }
     public void setUpGame(){
         assetSetter.setObjects();
+        assetSetter.setNPC();
         gameState=playState;
     }
     public void startGameThread() {
@@ -82,6 +85,11 @@ public class MainJPanel extends JPanel implements Runnable {
         if(gameState == playState) {
             currentTime = System.currentTimeMillis();
             player.update();
+            for (int i = 0; i < npcArray.length; i++) {
+                if(npcArray[i]!=null){
+                    npcArray[i].update();
+                }
+            }
         }
     }
 
@@ -92,6 +100,11 @@ public class MainJPanel extends JPanel implements Runnable {
         for (int i = 0; i <object.length; i++){
             if(object[i]!=null){
                 object[i].draw(g2,this);
+            }
+        }
+        for (int i = 0; i < npcArray.length; i++) {
+            if(npcArray[i]!=null){
+                npcArray[i].draw(g2);
             }
         }
         player.draw(g2);

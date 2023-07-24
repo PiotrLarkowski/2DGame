@@ -1,7 +1,5 @@
 package org.main;
 
-import org.objects.ObjectBook;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;

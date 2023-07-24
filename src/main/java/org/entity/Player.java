@@ -3,12 +3,10 @@ package org.entity;
 import org.main.KeyHandler;
 import org.main.MainJPanel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.Objects;
 
-public class Player extends Entity {
+public class Player extends ObjectEntity {
     KeyHandler keyHandler;
 
     public final int screenX;
@@ -66,6 +64,8 @@ public class Player extends Entity {
             gp.collisionChecker.checkTile(this);
             int objectIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objectIndex);
+            int npcIndex = gp.collisionChecker.checkEntity(this,gp.npcArray);
+            interactNPC(npcIndex);
             if (!collisionOn) {
                 switch (direction) {
                     case "up":
@@ -156,7 +156,11 @@ public class Player extends Entity {
             }
         }
     }
-
+    public void interactNPC(int i){
+        if(i!= 999){
+            System.out.println("You are hitting someone");
+        }
+    }
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         switch (direction) {
