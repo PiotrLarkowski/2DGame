@@ -58,6 +58,7 @@ public class UI {
             gp.stopGameThread();
         }else if (gp.gameState == gp.fightState){
             if(gp.reasonOfDialogue == 1){
+                levelFinished = true;
                 gp.stopMusic();
                 g2.setColor(Color.black);
                 g2.drawImage(bufferedImageBackground, (gp.finalSize * 2) + 80, 25, gp.screenWidth - 25 - ((gp.finalSize * 2) + 80), gp.finalSize * 2, null);

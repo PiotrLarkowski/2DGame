@@ -8,6 +8,7 @@ import org.entity.*;
 import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Random;
 
@@ -119,10 +120,13 @@ public class MainJPanel extends JPanel implements Runnable {
                 }
             }
         }
+        player.drawAvatar(g2);
         player.draw(g2);
         ui.draw(g2);
         g2.dispose();
     }
+
+
 
     public void playMusic(int i) {
         themePlay = true;

@@ -13,6 +13,7 @@ public class Player extends ObjectEntity {
     public final int screenX;
     public final int screenY;
     public int spellRemove = 0;
+    public int avatarNumber = 0;
     boolean eventQueue[] = new boolean[10];
 
     public Player(MainJPanel gp, KeyHandler keyHandler) {
@@ -47,6 +48,12 @@ public class Player extends ObjectEntity {
         worldY = 48;
         speed = 4;
         direction = "down";
+    }
+    public void drawAvatar(Graphics2D g2) {
+        if(avatarNumber == 0){
+            BufferedImage image = setup("/player/avatar/noviceAvatar");
+            g2.drawImage(image,10,10,gp.finalSize*3,gp.finalSize*3,null);
+        }
     }
 
     public void update() {
