@@ -14,6 +14,7 @@ public class SuperObject {
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
     public int connectGateTurnstile =0;
+    public boolean used = false;
 
     public void draw(Graphics2D g2, MainJPanel gp){
         int screenX = worldX - gp.player.worldX + gp.player.screenX;

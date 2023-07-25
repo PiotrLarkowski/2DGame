@@ -2,6 +2,7 @@ package org.entity;
 
 import org.main.KeyHandler;
 import org.main.MainJPanel;
+import org.objects.ObjectGate;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -152,7 +153,10 @@ public class Player extends ObjectEntity {
                             }
                         }
                     }
-                    gp.ui.showMessage("You hear open some gate");
+                    if(!gp.object[i].used){
+                        gp.object[i].used = true;
+                        gp.ui.showMessage("You hear open some gate");
+                    }
                     break;
             }
         }

@@ -1,10 +1,12 @@
 package org.main;
 
+import org.entity.ObjectEntity;
 import org.entity.npcGoblin;
 import org.entity.npcRedMage;
 import org.objects.ObjectBook;
 import org.objects.ObjectGate;
 import org.objects.ObjectTurnstile;
+import org.objects.SuperObject;
 
 public class AssetSetter {
     MainJPanel gp;
@@ -32,5 +34,10 @@ public class AssetSetter {
         gp.npcArray[0] = new npcGoblin(gp, 0);
         gp.npcArray[0].worldX = gp.finalSize;
         gp.npcArray[0].worldY = gp.finalSize*5;
+    }
+    public void setObject(ObjectEntity object, int positionX, int positionY){
+        gp.npcArray[4] = object;
+        object.worldX = positionX * gp.finalSize;
+        object.worldY = positionY * gp.finalSize;
     }
 }
