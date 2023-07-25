@@ -35,7 +35,7 @@ public class UI {
                 gp.playMusic(0);
             }
             if (messageOn) {
-                g2.setColor(Color.white);
+                g2.setColor(new Color(255,255,255,200));
                 g2.fillRoundRect(gp.finalSize*4, gp.finalSize/2, (int) g2.getFontMetrics().getStringBounds(message, g2).getWidth()-10,gp.finalSize*2,25,25);
                 g2.setStroke(new BasicStroke(5));
                 g2.setColor(Color.BLACK);
@@ -78,9 +78,13 @@ public class UI {
     }
 
     private void drawInCenterOfScreen(String text) {
+        g2.setColor(new Color(255,255,255,200));
         int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = (gp.screenWidth / 2)-textLength/2, y = gp.screenHeight/2;
-        g2.drawImage(bufferedImageBackground, x-20, y-gp.finalSize, textLength + 40, gp.finalSize+30, null);
+        g2.fillRoundRect(x-20, y-gp.finalSize, textLength + 40, gp.finalSize+30, 25,25);
+        g2.setStroke(new BasicStroke(5));
+        g2.setColor(Color.BLACK);
+        g2.drawRoundRect(x-20+5, y-gp.finalSize+5, textLength + 40-10, gp.finalSize+30-10, 25,25);
         g2.drawString(text, x, y);
     }
 
