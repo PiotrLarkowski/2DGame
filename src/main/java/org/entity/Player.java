@@ -96,6 +96,7 @@ public class Player extends ObjectEntity {
     }
 
     private void playerSeyMessage() {
+        gp.currentTime = System.currentTimeMillis();
         if (!eventQueue[0] &&getSecondOfPlay()>2) {
             eventQueue[0] = true;
             gp.ui.showMessage("Where I'm?");
@@ -158,7 +159,7 @@ public class Player extends ObjectEntity {
     }
     public void interactNPC(int i){
         if(i!= 999){
-
+            System.out.println("You are hitting someone");
         }
     }
     public void draw(Graphics2D g2) {

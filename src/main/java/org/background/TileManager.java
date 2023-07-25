@@ -50,7 +50,13 @@ public class TileManager {
     public void getTileImages() {
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/flor.png"));
+            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor1.png"));
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor2.png"));
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor3.png"));
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor4.png"));
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/wall.png"));
             tile[1].collision = true;

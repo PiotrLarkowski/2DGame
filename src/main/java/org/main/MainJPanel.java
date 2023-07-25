@@ -9,6 +9,7 @@ import javax.sound.sampled.FloatControl;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.Random;
 
 public class MainJPanel extends JPanel implements Runnable {
     final int originalTileSize = 48;
@@ -23,7 +24,9 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
     public long timeGameStarted = System.currentTimeMillis();
-    public long currentTime;
+
+    public Random rand = new Random();
+    public long currentTime = 0;
     public int gameState = 0;
     public final int menuState = 0;
     public final int playState = 1;
@@ -71,20 +74,18 @@ public class MainJPanel extends JPanel implements Runnable {
 
     @Override
     public void run() {
-        if (gameState == playState) {
-            double drawInterval = (double) 1000000000 / FPS;
-            double delta = 0;
-            long lastTime = System.nanoTime();
-            long currentTime;
-            while (mainThread != null) {
-                currentTime = System.nanoTime();
-                delta += (currentTime - lastTime) / drawInterval;
-                lastTime = currentTime;
-                if (delta >= 1) {
-                    update();
-                    repaint();
-                    delta--;
-                }
+        double drawInterval = (double) 1000000000 / FPS;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
+        while (mainThread != null) {
+            currentTime = System.nanoTime();
+            delta += (currentTime - lastTime) / drawInterval;
+            lastTime = currentTime;
+            if (delta >= 1) {
+                update();
+                repaint();
+                delta--;
             }
         }
     }

@@ -47,12 +47,6 @@ public class ObjectEntity {
                 switch (direction) {
                     case "up", "down", "left", "right" -> {
                         image = right1;
-                        {
-                            if (gp.player.worldX>=88&&gp.player.worldX<=100 && gp.player.worldY>200&&gp.player.worldY<236) {
-                                gp.reasonOfDialogue = 1;
-                                gp.gameState = gp.fightState;
-                            }
-                        }
                     }
                 }
             }
