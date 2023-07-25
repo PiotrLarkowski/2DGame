@@ -158,7 +158,7 @@ public class Player extends ObjectEntity {
     }
     public void interactNPC(int i){
         if(i!= 999){
-            System.out.println("You are hitting someone");
+
         }
     }
     public void draw(Graphics2D g2) {

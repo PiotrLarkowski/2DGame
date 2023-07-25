@@ -5,13 +5,14 @@ import org.main.MainJPanel;
 import java.util.Random;
 
 public class npcGoblin extends ObjectEntity {
-    public npcGoblin(MainJPanel gp) {
+    public npcGoblin(MainJPanel gp, int npcStatus) {
         super(gp);
-
+        this.npcStatus = npcStatus;
         direction = "left";
         speed = 4;
         getImages();
     }
+
     public void getImages() {
         up1 = setup("/player/opponent/goblin/up1");
         up2 = setup("/player/opponent/goblin/up2");
@@ -22,18 +23,20 @@ public class npcGoblin extends ObjectEntity {
         right1 = setup("/player/opponent/goblin/right1");
         right2 = setup("/player/opponent/goblin/right2");
     }
-    public void setAction(){
+
+    public void setAction() {
         Random random = new Random();
+        speed = 0;
         actionLockCounter++;
-        if(actionLockCounter == 60){
-            int i = random.nextInt(100)+1;
-            if(i<=35){
+        if (actionLockCounter == 60) {
+            int i = random.nextInt(100) + 1;
+            if (i <= 35) {
                 direction = "up";
-            }else if(i>35&&i<=50){
+            } else if (i > 35 && i <= 50) {
                 direction = "right";
-            }else if(i>50&&i<=70){
+            } else if (i > 50 && i <= 70) {
                 direction = "left";
-            }else if(i>70&&i<=90){
+            } else if (i > 70 && i <= 90) {
                 direction = "down";
             }
             actionLockCounter = 0;
