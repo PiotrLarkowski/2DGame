@@ -44,11 +44,7 @@ public class ObjectEntity {
                 worldY + gp.finalSize > gp.player.worldY - gp.player.screenY &&
                 worldY - gp.finalSize < gp.player.worldY + gp.player.screenY) {
             if (npcStatus == 0) {
-                switch (direction) {
-                    case "up", "down", "left", "right" -> {
-                        image = right1;
-                    }
-                }
+                image = right1;
             }
             if (npcStatus == 1) {
                 switch (direction) {

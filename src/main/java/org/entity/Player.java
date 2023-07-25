@@ -6,13 +6,13 @@ import org.objects.ObjectGate;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends ObjectEntity {
     KeyHandler keyHandler;
 
     public final int screenX;
     public final int screenY;
-    public int spellRemove = 0;
     public int avatarNumber = 0;
     boolean eventQueue[] = new boolean[10];
 
@@ -143,7 +143,7 @@ public class Player extends ObjectEntity {
             switch (objectName) {
                 case "Book":
                     gp.object[i] = null;
-                    spellRemove++;
+                    gp.spellBook.add(gp.object[i].spellName);
                     gp.ui.showMessage("You got a book");
                     break;
                 case "Chest":

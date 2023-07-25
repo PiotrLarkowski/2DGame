@@ -4,6 +4,7 @@ import org.main.MainJPanel;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class SuperObject {
     public BufferedImage image;
@@ -15,6 +16,7 @@ public class SuperObject {
     public int solidAreaDefaultY = 0;
     public int connectGateTurnstile =0;
     public boolean used = false;
+    public String spellName;
 
     public void draw(Graphics2D g2, MainJPanel gp){
         int screenX = worldX - gp.player.worldX + gp.player.screenX;

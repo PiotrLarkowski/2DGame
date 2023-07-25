@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class MainJPanel extends JPanel implements Runnable {
@@ -34,8 +35,10 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int pauseState = 2;
     public final int endState = 3;
     public final int fightState = 4;
+    public final int spellBookState = 5;
     public boolean themePlay = false;
     public int reasonOfDialogue = 0;
+    public ArrayList<String> spellBook = new ArrayList<>();
     int FPS = 60;
     Sound music = new Sound();
     Sound soundEffect = new Sound();

@@ -2,6 +2,8 @@ package org.main;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -10,7 +12,10 @@ public class UI {
     Font arial_40;
     BufferedImage bufferedImageBackground;
     Graphics2D g2;
+
     public boolean messageOn = false;
+
+    int pointer = 0;
     public String message;
     boolean levelFinished = false;
     int messageCounter = 0;
@@ -19,6 +24,10 @@ public class UI {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         bufferedImageBackground = ImageIO.read(getClass().getResourceAsStream("/objects/messageBackground.png"));
+        gp.spellBook.add("ThrouVision");
+        gp.spellBook.add("ThrouVision");
+        gp.spellBook.add("ThrouVision");
+        gp.spellBook.add("ThrouVision");
     }
 
     public void showMessage(String text) {
@@ -31,15 +40,15 @@ public class UI {
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
         if (gp.gameState == gp.playState) {
-            if(!gp.themePlay){
+            if (!gp.themePlay) {
                 gp.playMusic(0);
             }
             if (messageOn) {
-                g2.setColor(new Color(255,255,255,200));
-                g2.fillRoundRect(gp.finalSize*4, gp.finalSize/2, (int) g2.getFontMetrics().getStringBounds(message, g2).getWidth()-10,gp.finalSize*2,25,25);
-                g2.setStroke(new BasicStroke(5));
+                g2.setColor(new Color(255, 255, 255, 200));
+                g2.fillRoundRect(gp.finalSize * 4, gp.finalSize / 2, (int) g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10, gp.finalSize * 2, 25, 25);
+                g2.setStroke(new BasicStroke(3));
                 g2.setColor(Color.BLACK);
-                g2.drawRoundRect((gp.finalSize*4)+5, (gp.finalSize/2)+5, (int) (g2.getFontMetrics().getStringBounds(message, g2).getWidth()-10)-10,(gp.finalSize*2)-10,25,25);
+                g2.drawRoundRect((gp.finalSize * 4) + 5, (gp.finalSize / 2) + 5, (int) (g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10) - 10, (gp.finalSize * 2) - 10, 25, 25);
                 g2.setColor(Color.black);
                 g2.setFont(g2.getFont().deriveFont(25F));
                 g2.drawString(message, (gp.finalSize * 2) + 120, gp.finalSize + 40);
@@ -56,8 +65,8 @@ public class UI {
             endGameMessage(g2);
             gp.stopMusic();
             gp.stopGameThread();
-        }else if (gp.gameState == gp.fightState){
-            if(gp.reasonOfDialogue == 1){
+        } else if (gp.gameState == gp.fightState) {
+            if (gp.reasonOfDialogue == 1) {
                 levelFinished = true;
                 gp.stopMusic();
                 g2.setColor(Color.black);
@@ -66,6 +75,23 @@ public class UI {
                 g2.drawString("HEY! STOP RIGHT THERE!", (gp.finalSize * 2) + 100, gp.finalSize + 40);
                 drawFightScreen();
             }
+        }else if (gp.gameState == gp.spellBookState){
+            drawSpellBook();
+        }
+    }
+
+    public void drawSpellBook() {
+        g2.setColor(new Color(255,255,255,200));
+        g2.fillRoundRect(8*gp.finalSize, gp.finalSize, gp.finalSize * 7, gp.finalSize * 10, 35, 35);
+        g2.setColor(Color.BLACK);
+        g2.setStroke(new BasicStroke(3));
+        g2.drawRoundRect((8*gp.finalSize)+5, (gp.finalSize)+5, (gp.finalSize * 7)-10, (gp.finalSize * 10)-10, 35, 35);
+        for (int i = 0; i < gp.spellBook.size(); i++) {
+            g2.setFont(new Font("Arial",Font.PLAIN,20));
+            if(pointer == i){
+                g2.drawString(" > ",9*gp.finalSize, (2+i)*gp.finalSize);
+            }
+            g2.drawString(gp.spellBook.get(i),10*gp.finalSize, (2+i)*gp.finalSize);
         }
     }
 
@@ -75,23 +101,24 @@ public class UI {
 
     public void drawPauseScreen() {
         g2.setColor(Color.BLACK);
-        drawInCenterOfScreen( "PAUSE");
+        drawInCenterOfScreen("PAUSE");
     }
 
     private void drawInCenterOfScreen(String text) {
-        g2.setColor(new Color(255,255,255,200));
+        g2.setColor(new Color(255, 255, 255, 200));
         int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = (gp.screenWidth / 2)-textLength/2, y = gp.screenHeight/2;
-        g2.fillRoundRect(x-20, y-gp.finalSize, textLength + 40, gp.finalSize+30, 25,25);
-        g2.setStroke(new BasicStroke(5));
+        int x = (gp.screenWidth / 2) - textLength / 2, y = gp.screenHeight / 2;
+        g2.fillRoundRect(x - 20, y - gp.finalSize, textLength + 40, gp.finalSize + 30, 25, 25);
+        g2.setStroke(new BasicStroke(3));
         g2.setColor(Color.BLACK);
-        g2.drawRoundRect(x-20+5, y-gp.finalSize+5, textLength + 40-10, gp.finalSize+30-10, 25,25);
+        g2.drawRoundRect(x - 20 + 5, y - gp.finalSize + 5, textLength + 40 - 10, gp.finalSize + 30 - 10, 25, 25);
         g2.drawString(text, x, y);
     }
 
     private void endGameMessage(Graphics2D g2) {
         g2.setColor(Color.YELLOW);
         g2.setFont(new Font("arial_80B", Font.BOLD, 44));
-        drawInCenterOfScreen( "LEVEL COMPLETED");
+        drawInCenterOfScreen("LEVEL COMPLETED");
     }
+
 }
