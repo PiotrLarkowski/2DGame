@@ -11,6 +11,7 @@ public class UI {
     BufferedImage bufferedImageBackground;
     Graphics2D g2;
     public boolean messageOn = false;
+    public boolean platePainted = false;
     public String message;
     boolean levelFinished = false;
     int messageCounter = 0;
@@ -31,7 +32,7 @@ public class UI {
         g2.setFont(arial_40);
         g2.setColor(Color.WHITE);
         if (gp.gameState == gp.playState) {
-            if(!gp.themePlay){
+            if (!gp.themePlay) {
                 gp.playMusic(0);
             }
             if (messageOn) {
@@ -52,24 +53,51 @@ public class UI {
             endGameMessage(g2);
             gp.stopMusic();
             gp.stopGameThread();
+        } else if (gp.gameState == gp.fightState) {
+            if (gp.reasonOfDialogue == 1) {
+                gp.stopMusic();
+                g2.setColor(Color.black);
+                g2.drawImage(bufferedImageBackground, (gp.finalSize * 2) + 80, 25, gp.screenWidth - 25 - ((gp.finalSize * 2) + 80), gp.finalSize * 2, null);
+                g2.setFont(g2.getFont().deriveFont(30F));
+                drawFightScreen();
+            }
         }
+    }
+
+    private void drawFightScreen() {
+        g2.setColor(Color.WHITE);
+        long l = System.nanoTime();
+        if (!platePainted) {
+            for (int i = 0; i < gp.screenWidth; i++) {
+                for (int j = 0; j < gp.screenHeight; j++) {
+                    if (l < System.nanoTime() - 1000) {
+                        g2.fillRect((i * gp.finalSize), (j * gp.finalSize), gp.finalSize, gp.finalSize);
+                        gp.repaint();
+                        l = System.nanoTime();
+                    }
+                }
+            }
+        }
+        g2.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+        platePainted = false;
+        g2.drawString("HEY! STOP RIGHT THERE!", (gp.finalSize * 2) + 100, gp.finalSize + 40);
     }
 
     public void drawPauseScreen() {
         g2.setColor(Color.BLACK);
-        drawInCenterOfScreen( "PAUSE");
+        drawInCenterOfScreen("PAUSE");
     }
 
     private void drawInCenterOfScreen(String text) {
         int textLength = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
-        int x = (gp.screenWidth / 2)-textLength/2, y = gp.screenHeight/2;
-        g2.drawImage(bufferedImageBackground, x-20, y-gp.finalSize, textLength + 40, gp.finalSize+30, null);
+        int x = (gp.screenWidth / 2) - textLength / 2, y = gp.screenHeight / 2;
+        g2.drawImage(bufferedImageBackground, x - 20, y - gp.finalSize, textLength + 40, gp.finalSize + 30, null);
         g2.drawString(text, x, y);
     }
 
     private void endGameMessage(Graphics2D g2) {
         g2.setColor(Color.YELLOW);
         g2.setFont(new Font("arial_80B", Font.BOLD, 44));
-        drawInCenterOfScreen( "LEVEL COMPLETED");
+        drawInCenterOfScreen("LEVEL COMPLETED");
     }
 }

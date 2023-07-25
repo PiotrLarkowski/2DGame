@@ -35,7 +35,7 @@ public class ObjectEntity {
         return image;
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2) throws InterruptedException {
         BufferedImage image = null;
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
@@ -45,7 +45,15 @@ public class ObjectEntity {
                 worldY - gp.finalSize < gp.player.worldY + gp.player.screenY) {
             if (npcStatus == 0) {
                 switch (direction) {
-                    case "up", "down", "left", "right" -> image = right1;
+                    case "up", "down", "left", "right" -> {
+                        image = right1;
+                        {
+                            if (gp.player.worldX>=88&&gp.player.worldX<=100 && gp.player.worldY>200&&gp.player.worldY<236) {
+                                gp.reasonOfDialogue = 1;
+                                gp.gameState = gp.fightState;
+                            }
+                        }
+                    }
                 }
             }
             if (npcStatus == 1) {

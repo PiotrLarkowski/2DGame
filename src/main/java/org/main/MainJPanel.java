@@ -29,7 +29,9 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int playState = 1;
     public final int pauseState = 2;
     public final int endState = 3;
+    public final int fightState = 4;
     public boolean themePlay = false;
+    public int reasonOfDialogue = 0;
     int FPS = 60;
     Sound music = new Sound();
     Sound soundEffect = new Sound();
@@ -42,6 +44,7 @@ public class MainJPanel extends JPanel implements Runnable {
     TileManager tileManager = new TileManager(this);
     public SuperObject object[] = new SuperObject[10];
     public ObjectEntity[] npcArray = new ObjectEntity[10];
+
     public MainJPanel() throws IOException {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 //        this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height));
@@ -50,43 +53,47 @@ public class MainJPanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
-    public void setUpGame(){
+
+    public void setUpGame() {
         assetSetter.setObjects();
         assetSetter.setNPC();
-        gameState=playState;
+        gameState = playState;
     }
+
     public void startGameThread() {
         mainThread = new Thread(this);
         mainThread.start();
     }
-    public void stopGameThread(){
+
+    public void stopGameThread() {
         mainThread.interrupt();
     }
 
     @Override
     public void run() {
-        double drawInterval = (double) 1000000000 / FPS;
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
-        while (mainThread != null) {
-            currentTime = System.nanoTime();
-            delta += (currentTime - lastTime) / drawInterval;
-            lastTime = currentTime;
-            if (delta >= 1) {
-                update();
-                repaint();
-                delta--;
+        if (gameState == playState) {
+            double drawInterval = (double) 1000000000 / FPS;
+            double delta = 0;
+            long lastTime = System.nanoTime();
+            long currentTime;
+            while (mainThread != null) {
+                currentTime = System.nanoTime();
+                delta += (currentTime - lastTime) / drawInterval;
+                lastTime = currentTime;
+                if (delta >= 1) {
+                    update();
+                    repaint();
+                    delta--;
+                }
             }
         }
     }
 
     public void update() {
-        if(gameState == playState) {
-            currentTime = System.currentTimeMillis();
+        if (gameState == playState) {
             player.update();
             for (int i = 0; i < npcArray.length; i++) {
-                if(npcArray[i]!=null){
+                if (npcArray[i] != null) {
                     npcArray[i].update();
                 }
             }
@@ -97,21 +104,26 @@ public class MainJPanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         tileManager.draw(g2);
-        for (int i = 0; i <object.length; i++){
-            if(object[i]!=null){
-                object[i].draw(g2,this);
+        for (int i = 0; i < object.length; i++) {
+            if (object[i] != null) {
+                object[i].draw(g2, this);
             }
         }
         for (int i = 0; i < npcArray.length; i++) {
-            if(npcArray[i]!=null){
-                npcArray[i].draw(g2);
+            if (npcArray[i] != null) {
+                try {
+                    npcArray[i].draw(g2);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
         player.draw(g2);
         ui.draw(g2);
         g2.dispose();
     }
-    public void playMusic(int i){
+
+    public void playMusic(int i) {
         themePlay = true;
         music.setFile(i);
         FloatControl gainControl =
@@ -120,11 +132,13 @@ public class MainJPanel extends JPanel implements Runnable {
         music.play();
         music.loop();
     }
-    public void stopMusic(){
+
+    public void stopMusic() {
         themePlay = false;
         music.stop();
     }
-    public void playEventMusic(int i){
+
+    public void playEventMusic(int i) {
         soundEffect.setFile(i);
         soundEffect.play();
     }
