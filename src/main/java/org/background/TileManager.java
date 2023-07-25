@@ -7,6 +7,7 @@ import java.awt.*;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Objects;
 
 public class TileManager {
     MainJPanel gp;
@@ -19,10 +20,10 @@ public class TileManager {
         tile = new Tile[10];
         getTileImages();
         mapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow];
-        loadMap("/maps/worldMap01.txt");
+        mapTileNumber = loadMap("/maps/worldMap01.txt");
     }
 
-    public void loadMap(String filePath) {
+    public int[][] loadMap(String filePath) {
         try {
             InputStream inputStream = getClass().getResourceAsStream(filePath);
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
@@ -33,6 +34,18 @@ public class TileManager {
                 while (col < gp.maxWorldCol) {
                     String number[] = line.split(" ");
                     int num = Integer.parseInt(number[col]);
+                    if(num == 0){
+                        int i = gp.rand.nextInt(100) + 1;
+                        if(i<25&&i>=1){
+                            num = 0;
+                        }else if(i<50&&i>=25){
+                            num = 1;
+                        }else if(i<75&&i>=50){
+                            num = 2;
+                        }else if(i<100&&i>=75){
+                            num = 2;
+                        }
+                    }
                     mapTileNumber[col][row] = num;
                     col++;
                 }
@@ -45,21 +58,22 @@ public class TileManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return (mapTileNumber);
     }
 
     public void getTileImages() {
         try {
             tile[0] = new Tile();
-            tile[0].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor1.png"));
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor2.png"));
-            tile[3] = new Tile();
-            tile[3].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor3.png"));
-            tile[4] = new Tile();
-            tile[4].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/brickFlor/flor4.png"));
+            tile[0].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/backgrounds/brickFlor/flor1.png")));
             tile[1] = new Tile();
-            tile[1].image = ImageIO.read(getClass().getResourceAsStream("/backgrounds/wall.png"));
-            tile[1].collision = true;
+            tile[1].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/backgrounds/brickFlor/flor2.png")));
+            tile[2] = new Tile();
+            tile[2].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/backgrounds/brickFlor/flor3.png")));
+            tile[3] = new Tile();
+            tile[3].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/backgrounds/brickFlor/flor4.png")));
+            tile[4] = new Tile();
+            tile[4].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/backgrounds/wall.png")));
+            tile[4].collision = true;
         } catch (Exception e) {
             e.printStackTrace();
         }
