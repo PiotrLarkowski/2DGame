@@ -60,7 +60,9 @@ public class MainJPanel extends JPanel implements Runnable {
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
-
+    public long getSecondOfPlay(long currentTime){
+        return (currentTime-timeGameStarted)/1000;
+    }
     public void setUpGame() {
         assetSetter.setObjects();
         assetSetter.setNPC();

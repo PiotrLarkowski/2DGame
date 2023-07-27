@@ -2,17 +2,16 @@ package org.main;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Objects;
 
 public class UI {
     MainJPanel gp;
     Font arial_40;
     BufferedImage bufferedImageBackground;
     Graphics2D g2;
-
+    public int color = 1;
     public boolean messageOn = false;
 
     int pointer = 0;
@@ -23,7 +22,7 @@ public class UI {
     public UI(MainJPanel gp) throws IOException {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
-        bufferedImageBackground = ImageIO.read(getClass().getResourceAsStream("/objects/messageBackground.png"));
+        bufferedImageBackground = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/messageBackground.png")));
         gp.spellBook.add("ThrouVision");
         gp.spellBook.add("ThrouVision");
         gp.spellBook.add("ThrouVision");
@@ -38,20 +37,30 @@ public class UI {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         g2.setFont(arial_40);
-        g2.setColor(Color.WHITE);
         if (gp.gameState == gp.playState) {
             if (!gp.themePlay) {
                 gp.playMusic(0);
             }
             if (messageOn) {
-                g2.setColor(new Color(255, 255, 255, 200));
-                g2.fillRoundRect(gp.finalSize * 4, gp.finalSize / 2, (int) g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10, gp.finalSize * 2, 25, 25);
+                int yPositionModerator = 0;
+                if (color == 1) {
+                    g2.setColor(new Color(255, 255, 255, 200));
+                    yPositionModerator = 1;
+                } else if (color == 2) {
+                    g2.setColor(new Color(255, 255, 0, 200));
+                    yPositionModerator = 5;
+                }
+                g2.fillRoundRect(gp.finalSize * 4, gp.finalSize / 2 * yPositionModerator, (int) g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10, gp.finalSize * 2, 25, 25);
                 g2.setStroke(new BasicStroke(3));
                 g2.setColor(Color.BLACK);
-                g2.drawRoundRect((gp.finalSize * 4) + 5, (gp.finalSize / 2) + 5, (int) (g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10) - 10, (gp.finalSize * 2) - 10, 25, 25);
+                g2.drawRoundRect((gp.finalSize * 4) + 5, (gp.finalSize / 2 * yPositionModerator) + 5, (int) (g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10) - 10, (gp.finalSize * 2) - 10, 25, 25);
                 g2.setColor(Color.black);
                 g2.setFont(g2.getFont().deriveFont(25F));
-                g2.drawString(message, (gp.finalSize * 2) + 120, gp.finalSize + 40);
+                if (color == 1) {
+                    g2.drawString(message, (gp.finalSize * 2) + 120, gp.finalSize + 40);
+                } else if (color == 2) {
+                    g2.drawString(message, (gp.finalSize * 2) + 120, gp.finalSize + 40 * (yPositionModerator - 2));
+                }
                 messageCounter++;
                 if (messageCounter > 120) {
                     messageCounter = 0;
@@ -75,23 +84,23 @@ public class UI {
                 g2.drawString("HEY! STOP RIGHT THERE!", (gp.finalSize * 2) + 100, gp.finalSize + 40);
                 drawFightScreen();
             }
-        }else if (gp.gameState == gp.spellBookState){
+        } else if (gp.gameState == gp.spellBookState) {
             drawSpellBook();
         }
     }
 
     public void drawSpellBook() {
-        g2.setColor(new Color(255,255,255,200));
-        g2.fillRoundRect(8*gp.finalSize, gp.finalSize, gp.finalSize * 7, gp.finalSize * 10, 35, 35);
+        g2.setColor(new Color(255, 255, 255, 200));
+        g2.fillRoundRect(8 * gp.finalSize, gp.finalSize, gp.finalSize * 7, gp.finalSize * 10, 35, 35);
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke(3));
-        g2.drawRoundRect((8*gp.finalSize)+5, (gp.finalSize)+5, (gp.finalSize * 7)-10, (gp.finalSize * 10)-10, 35, 35);
+        g2.drawRoundRect((8 * gp.finalSize) + 5, (gp.finalSize) + 5, (gp.finalSize * 7) - 10, (gp.finalSize * 10) - 10, 35, 35);
         for (int i = 0; i < gp.spellBook.size(); i++) {
-            g2.setFont(new Font("Arial",Font.PLAIN,20));
-            if(pointer == i){
-                g2.drawString(" > ",9*gp.finalSize, (2+i)*gp.finalSize);
+            g2.setFont(new Font("Arial", Font.PLAIN, 20));
+            if (pointer == i) {
+                g2.drawString(" > ", 9 * gp.finalSize, (2 + i) * gp.finalSize);
             }
-            g2.drawString(gp.spellBook.get(i),10*gp.finalSize, (2+i)*gp.finalSize);
+            g2.drawString(gp.spellBook.get(i), 10 * gp.finalSize, (2 + i) * gp.finalSize);
         }
     }
 

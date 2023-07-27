@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends ObjectEntity {
     KeyHandler keyHandler;
-    public int[] timeToShowMessage = {0,4,8,15,25,40};
+    public int[] timeToShowMessage = {0, 4, 8, 15, 25, 40};
     public int currentEvent = 1;
     public String[] currentDialogue = {
             "",
@@ -36,6 +36,7 @@ public class Player extends ObjectEntity {
         screenX = gp.screenWidth / 2;
         screenY = gp.screenHeight / 2;
     }
+
     public void getPlayerImages() {
         up1 = setup("/player/novice/up1");
         up2 = setup("/player/novice/up2");
@@ -51,16 +52,18 @@ public class Player extends ObjectEntity {
         imgDef3 = setup("/player/novice/defaultLeft");
         imgDef4 = setup("/player/novice/defaultUp");
     }
+
     public void setDefaultValues() {
         worldX = 48;
         worldY = 48;
         speed = 4;
         direction = "down";
     }
+
     public void drawAvatar(Graphics2D g2) {
-        if(avatarNumber == 0){
+        if (avatarNumber == 0) {
             BufferedImage image = setup("/player/avatar/noviceAvatar");
-            g2.drawImage(image,10,10,gp.finalSize*3,gp.finalSize*3,null);
+            g2.drawImage(image, 10, 10, gp.finalSize * 3, gp.finalSize * 3, null);
         }
     }
 
@@ -80,7 +83,7 @@ public class Player extends ObjectEntity {
             gp.collisionChecker.checkTile(this);
             int objectIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objectIndex);
-            int npcIndex = gp.collisionChecker.checkEntity(this,gp.npcArray);
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npcArray);
             interactNPC(npcIndex);
             if (!collisionOn) {
                 switch (direction) {
@@ -112,34 +115,41 @@ public class Player extends ObjectEntity {
     }
 
     private void playerSeyMessage() {
-        gp.currentTime = System.currentTimeMillis();
-        if(!eventQueue[currentEvent] &&getSecondOfPlay()>timeToShowMessage[currentEvent]){
-            eventQueue[0] = true;
-            gp.ui.showMessage(currentDialogue[currentEvent]);
-            currentEvent++;
+        if (currentEvent != timeToShowMessage.length) {
+            if (!eventQueue[currentEvent] && gp.getSecondOfPlay(System.currentTimeMillis()) > timeToShowMessage[currentEvent]) {
+                eventQueue[0] = true;
+                gp.ui.color = 1;
+                gp.ui.showMessage(currentDialogue[currentEvent]);
+                if (currentEvent != timeToShowMessage.length) {
+                    currentEvent++;
+                }
+            }
         }
         if (!eventQueue[9] && (worldX > 2241 && worldX < 2261) && worldY > 2250) {
             eventQueue[9] = true;
+            gp.ui.color = 1;
             gp.ui.showMessage("Finally");
         }
-        if(worldX > 2241 && worldX < 2261 && worldY > 2300){
+        if (worldX > 2241 && worldX < 2261 && worldY > 2300) {
             gp.gameState = gp.endState;
         }
     }
 
-    public long getSecondOfPlay(){
-        return (gp.currentTime-gp.timeGameStarted)/1000;
-    }
+
     public void pickUpObject(int i) {
         if (i != 999) {
             String objectName = gp.object[i].name;
             switch (objectName) {
                 case "Book":
-                    gp.object[i] = null;
                     gp.spellBook.add(gp.object[i].spellName);
+                    gp.object[i] = null;
+                    gp.ui.color = 2;
                     gp.ui.showMessage("You got a book");
                     break;
                 case "Chest":
+                    gp.object[i] = null;
+                    gp.ui.color = 2;
+                    gp.ui.showMessage("You find a treasure");
                     break;
                 case "Turnstile":
                     for (int j = 0; j < gp.object.length; j++) {
@@ -153,19 +163,22 @@ public class Player extends ObjectEntity {
                             }
                         }
                     }
-                    if(!gp.object[i].used){
+                    if (!gp.object[i].used) {
                         gp.object[i].used = true;
+                        gp.ui.color = 2;
                         gp.ui.showMessage("You hear open some gate");
                     }
                     break;
             }
         }
     }
-    public void interactNPC(int i){
-        if(i!= 999){
+
+    public void interactNPC(int i) {
+        if (i != 999) {
             System.out.println("You are hitting someone");
         }
     }
+
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         switch (direction) {
