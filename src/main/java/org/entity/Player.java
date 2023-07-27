@@ -2,15 +2,23 @@ package org.entity;
 
 import org.main.KeyHandler;
 import org.main.MainJPanel;
-import org.objects.ObjectGate;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Player extends ObjectEntity {
     KeyHandler keyHandler;
-
+    public int[] timeToShowMessage = {0,4,8,15,25,40};
+    public int currentEvent = 1;
+    public String[] currentDialogue = {
+            "",
+            "Where I'm?",
+            "I need to get out of here!",
+            "And what is that robe?!",
+            "I thought I saw a rat",
+            "I could get lost...",
+            ""
+    };
     public final int screenX;
     public final int screenY;
     public int avatarNumber = 0;
@@ -105,29 +113,14 @@ public class Player extends ObjectEntity {
 
     private void playerSeyMessage() {
         gp.currentTime = System.currentTimeMillis();
-        if (!eventQueue[0] &&getSecondOfPlay()>2) {
+        if(!eventQueue[currentEvent] &&getSecondOfPlay()>timeToShowMessage[currentEvent]){
             eventQueue[0] = true;
-            gp.ui.showMessage("Where I'm?");
-        }
-        if (!eventQueue[1] && (worldX > 87 && worldX < 101) && worldY == 180) {
-            eventQueue[1] = true;
-            gp.ui.showMessage("I need to get out of here!");
-        }
-        if (!eventQueue[2] && getSecondOfPlay()>10) {
-            eventQueue[2] = true;
-            gp.ui.showMessage("And what is that robe?!");
-        }
-        if (!eventQueue[3] && getSecondOfPlay()>25) {
-            eventQueue[3] = true;
-            gp.ui.showMessage("I thought I saw a rat");
-        }
-        if (!eventQueue[4] && getSecondOfPlay()>40) {
-            eventQueue[4] = true;
-            gp.ui.showMessage("I could get lost...");
+            gp.ui.showMessage(currentDialogue[currentEvent]);
+            currentEvent++;
         }
         if (!eventQueue[9] && (worldX > 2241 && worldX < 2261) && worldY > 2250) {
             eventQueue[9] = true;
-            gp.ui.showMessage("Finally!");
+            gp.ui.showMessage("Finally");
         }
         if(worldX > 2241 && worldX < 2261 && worldY > 2300){
             gp.gameState = gp.endState;
