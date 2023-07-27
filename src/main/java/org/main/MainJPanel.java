@@ -28,7 +28,6 @@ public class MainJPanel extends JPanel implements Runnable {
     public long timeGameStarted = System.currentTimeMillis();
 
     public Random rand = new Random();
-    public long currentTime = 0;
     public int gameState = 0;
     public final int menuState = 0;
     public final int playState = 1;
@@ -49,7 +48,7 @@ public class MainJPanel extends JPanel implements Runnable {
     Thread mainThread;
     public Player player = new Player(this, keyHandler);
     TileManager tileManager = new TileManager(this);
-    public SuperObject object[] = new SuperObject[10];
+    public SuperObject object[] = new SuperObject[20];
     public ObjectEntity[] npcArray = new ObjectEntity[10];
 
     public MainJPanel() throws IOException {
