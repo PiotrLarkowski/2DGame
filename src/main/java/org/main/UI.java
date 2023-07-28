@@ -23,10 +23,6 @@ public class UI {
         this.gp = gp;
         arial_40 = new Font("Arial", Font.PLAIN, 40);
         bufferedImageBackground = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/messageBackground.png")));
-        gp.spellBook.add("ThrouVision");
-        gp.spellBook.add("ThrouVision");
-        gp.spellBook.add("ThrouVision");
-        gp.spellBook.add("ThrouVision");
     }
 
     public void showMessage(String text) {
@@ -101,6 +97,9 @@ public class UI {
                 g2.drawString(" > ", 9 * gp.finalSize, (2 + i) * gp.finalSize);
             }
             g2.drawString(gp.spellBook.get(i), 10 * gp.finalSize, (2 + i) * gp.finalSize);
+        }
+        if(gp.spellBook.size()==0){
+            g2.drawString("EMPTY", 10 * gp.finalSize, (2+2) * gp.finalSize);
         }
     }
 

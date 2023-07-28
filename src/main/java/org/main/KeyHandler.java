@@ -19,6 +19,21 @@ public class KeyHandler implements KeyListener {
     @Override
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
+        if(gp.gameState == gp.spellBookState){
+            if(code == KeyEvent.VK_S){
+                if(gp.ui.pointer == gp.spellBook.size()-1){
+                    gp.ui.pointer = 0;
+                }else{
+                    gp.ui.pointer++;
+                }
+            }else if(code == KeyEvent.VK_W){
+                if(gp.ui.pointer == 0){
+                    gp.ui.pointer = gp.spellBook.size()-1;
+                }else{
+                    gp.ui.pointer--;
+                }
+            }
+        }
         if (code == KeyEvent.VK_W) {
             upPressed = true;
         } else if (code == KeyEvent.VK_S) {
