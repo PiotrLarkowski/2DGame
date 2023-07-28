@@ -81,6 +81,7 @@ public class UI {
                 drawFightScreen();
             }
         } else if (gp.gameState == gp.spellBookState) {
+//            drawFightScreen();
             drawSpellBook();
         }
     }
@@ -104,7 +105,8 @@ public class UI {
     }
 
     private void drawFightScreen() {
-
+        g2.setColor(new Color(255, 255, 255));
+        g2.fillRoundRect(gp.finalSize, gp.finalSize, gp.screenWidth- (2*gp.finalSize),gp.screenHeight-gp.finalSize-(2*gp.finalSize), 35, 35);
     }
 
     public void drawPauseScreen() {

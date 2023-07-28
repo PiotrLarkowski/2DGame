@@ -60,6 +60,28 @@ public class Player extends ObjectEntity {
         direction = "down";
     }
 
+    public void drawBars(Graphics2D g2) {
+        BufferedImage image = setup("/player/emptyBar");
+        fillBars(g2, image, true);
+        fillBars(g2, image, false);
+    }
+
+    private void fillBars(Graphics2D g2, BufferedImage image, boolean healthMana) {
+        int heightModerator = 0;
+        if (healthMana) {
+            g2.setColor(Color.red);
+        } else {
+            g2.setColor(Color.blue);
+            heightModerator = 25;
+        }
+        g2.setFont(new Font("Arial", Font.PLAIN, 14));
+        g2.drawString(gp.lifePercentage + " %", (gp.finalSize / 2) * 11, gp.screenHeight - (gp.finalSize * 2) + 12+ heightModerator);
+        for (int i = 0; i < gp.lifePercentage; i++) {
+            g2.fillRect((gp.finalSize + 4) + (i * 2), gp.screenHeight - (gp.finalSize * 2) + 2+ heightModerator, 2, 14);
+        }
+        g2.drawImage(image, gp.finalSize, gp.screenHeight - (gp.finalSize * 2)+ heightModerator, 208, 16, null);
+    }
+
     public void drawAvatar(Graphics2D g2) {
         if (avatarNumber == 0) {
             BufferedImage image = setup("/player/avatar/noviceAvatar");

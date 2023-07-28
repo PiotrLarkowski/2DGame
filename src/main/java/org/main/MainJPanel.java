@@ -16,7 +16,8 @@ import java.util.Random;
 public class MainJPanel extends JPanel implements Runnable {
     final int originalTileSize = 48;
     final int scale = 1;
-
+    public int lifePercentage = 100;
+    public int manaPercentage = 100;
     public final int finalSize = originalTileSize * scale;
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
@@ -124,6 +125,7 @@ public class MainJPanel extends JPanel implements Runnable {
                 }
             }
         }
+        player.drawBars(g2);
         player.drawAvatar(g2);
         player.draw(g2);
         ui.draw(g2);
