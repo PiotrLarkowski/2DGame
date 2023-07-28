@@ -21,16 +21,23 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
         if(gp.gameState == gp.spellBookState){
             if(code == KeyEvent.VK_S){
-                if(gp.ui.pointer == gp.spellBook.size()-1){
+                if(gp.ui.pointer == gp.universalSpellBook.size()-1){
                     gp.ui.pointer = 0;
                 }else{
                     gp.ui.pointer++;
                 }
             }else if(code == KeyEvent.VK_W){
                 if(gp.ui.pointer == 0){
-                    gp.ui.pointer = gp.spellBook.size()-1;
+                    gp.ui.pointer = gp.universalSpellBook.size()-1;
                 }else{
                     gp.ui.pointer--;
+                }
+            }else if(code == KeyEvent.VK_ENTER){
+                if(gp.universalSpellBook.size()!=0){
+                    if(gp.universalSpellBook.get(pointer).equals("ByVision")){
+                        gp.manaPercentage -=10;
+                        gp.gameState = gp.playState;
+                    }
                 }
             }
         }

@@ -57,7 +57,7 @@ public class Player extends ObjectEntity {
         worldX = 48;
         worldY = 48;
         speed = 4;
-        direction = "down";
+        direction = "right";
     }
 
     public void drawBars(Graphics2D g2) {
@@ -169,7 +169,7 @@ public class Player extends ObjectEntity {
             String objectName = gp.object[i].name;
             switch (objectName) {
                 case "Book":
-                    gp.spellBook.add(gp.object[i].spellName);
+                    gp.universalSpellBook.add(gp.object[i].spellName);
                     gp.object[i] = null;
                     gp.ui.color = 2;
                     gp.ui.showMessage("You got a book");

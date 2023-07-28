@@ -81,7 +81,6 @@ public class UI {
                 drawFightScreen();
             }
         } else if (gp.gameState == gp.spellBookState) {
-//            drawFightScreen();
             drawSpellBook();
         }
     }
@@ -92,21 +91,32 @@ public class UI {
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke(3));
         g2.drawRoundRect((8 * gp.finalSize) + 5, (gp.finalSize) + 5, (gp.finalSize * 7) - 10, (gp.finalSize * 10) - 10, 35, 35);
-        for (int i = 0; i < gp.spellBook.size(); i++) {
-            g2.setFont(new Font("Arial", Font.PLAIN, 20));
+        g2.setFont(new Font("Arial", Font.PLAIN, 20));
+        g2.drawLine(17 * (gp.finalSize / 2), 5 * (gp.finalSize / 2), 29 * (gp.finalSize / 2), 5 * (gp.finalSize / 2));
+        g2.drawLine(47 * (gp.finalSize / 4), 4 * (gp.finalSize / 2), 47 * (gp.finalSize / 4), 21 * (gp.finalSize / 2));
+        g2.drawString("Universal spells", 17 * (gp.finalSize / 2), 2 * gp.finalSize);
+        g2.drawString("Fighting spells", 24 * (gp.finalSize / 2), 2 * gp.finalSize);
+        for (int i = 0; i < gp.universalSpellBook.size(); i++) {
             if (pointer == i) {
-                g2.drawString(" > ", 9 * gp.finalSize, (2 + i) * gp.finalSize);
+                g2.drawString(" > ", 17 * (gp.finalSize / 2), (4 + i) * gp.finalSize);
             }
-            g2.drawString(gp.spellBook.get(i), 10 * gp.finalSize, (2 + i) * gp.finalSize);
+            g2.drawString(gp.universalSpellBook.get(i), 19 * (gp.finalSize / 2), (4 + i) * gp.finalSize);
         }
-        if(gp.spellBook.size()==0){
-            g2.drawString("EMPTY", 10 * gp.finalSize, (2+2) * gp.finalSize);
+        if (gp.universalSpellBook.size() == 0) {
+            g2.drawString("EMPTY", 19 * (gp.finalSize / 2), 4 * gp.finalSize);
+        }
+        if (gp.fightingSpellBook.size() == 0) {
+            g2.drawString("EMPTY", 25 * (gp.finalSize / 2), 4 * gp.finalSize);
+        } else {
+            for (int i = 0; i < gp.fightingSpellBook.size(); i++) {
+                g2.drawString(gp.fightingSpellBook.get(i), 25 * (gp.finalSize / 2), (4 + i) * gp.finalSize);
+            }
         }
     }
 
     private void drawFightScreen() {
         g2.setColor(new Color(255, 255, 255));
-        g2.fillRoundRect(gp.finalSize, gp.finalSize, gp.screenWidth- (2*gp.finalSize),gp.screenHeight-gp.finalSize-(2*gp.finalSize), 35, 35);
+        g2.fillRoundRect(gp.finalSize, gp.finalSize, gp.screenWidth - (2 * gp.finalSize), gp.screenHeight - gp.finalSize - (2 * gp.finalSize), 35, 35);
     }
 
     public void drawPauseScreen() {

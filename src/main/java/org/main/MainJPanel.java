@@ -38,7 +38,8 @@ public class MainJPanel extends JPanel implements Runnable {
     public final int spellBookState = 5;
     public boolean themePlay = false;
     public int reasonOfDialogue = 0;
-    public ArrayList<String> spellBook = new ArrayList<>();
+    public ArrayList<String> universalSpellBook = new ArrayList<>();
+    public ArrayList<String> fightingSpellBook = new ArrayList<>();
     int FPS = 60;
     Sound music = new Sound();
     Sound soundEffect = new Sound();
@@ -67,6 +68,7 @@ public class MainJPanel extends JPanel implements Runnable {
         assetSetter.setObjects();
         assetSetter.setNPC();
         gameState = playState;
+        fightingSpellBook.add("Fireball");
     }
 
     public void startGameThread() {
