@@ -68,15 +68,21 @@ public class Player extends ObjectEntity {
 
     private void fillBars(Graphics2D g2, BufferedImage image, boolean healthMana) {
         int heightModerator = 0;
+        int value = 0;
+        String text = "";
         if (healthMana) {
             g2.setColor(Color.red);
+            value = gp.lifePercentage;
+            text = String.valueOf(gp.lifePercentage);
         } else {
             g2.setColor(Color.blue);
             heightModerator = 25;
+            value = gp.manaPercentage;
+            text = String.valueOf(gp.manaPercentage);
         }
         g2.setFont(new Font("Arial", Font.PLAIN, 14));
-        g2.drawString(gp.lifePercentage + " %", (gp.finalSize / 2) * 11, gp.screenHeight - (gp.finalSize * 2) + 12+ heightModerator);
-        for (int i = 0; i < gp.lifePercentage; i++) {
+        g2.drawString(text + " %", (gp.finalSize / 2) * 11, gp.screenHeight - (gp.finalSize * 2) + 12+ heightModerator);
+        for (int i = 0; i < value; i++) {
             g2.fillRect((gp.finalSize + 4) + (i * 2), gp.screenHeight - (gp.finalSize * 2) + 2+ heightModerator, 2, 14);
         }
         g2.drawImage(image, gp.finalSize, gp.screenHeight - (gp.finalSize * 2)+ heightModerator, 208, 16, null);

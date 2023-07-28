@@ -54,8 +54,6 @@ public class KeyHandler implements KeyListener {
             } else {
                 gp.gameState = gp.spellBookState;
             }
-        }else if (code == KeyEvent.VK_F) {
-            gp.lifePercentage -= 10;
         }
     }
 
