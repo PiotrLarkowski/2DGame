@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class MainJPanel extends JPanel implements Runnable {
+    public int levelNumber;
     final int originalTileSize = 48;
     final int scale = 1;
     public int lifePercentage = 100;
@@ -54,7 +55,7 @@ public class MainJPanel extends JPanel implements Runnable {
     public ObjectEntity[] npcArray = new ObjectEntity[10];
 
     public MainJPanel(int index) throws IOException {
-        tileManager = new TileManager(this, index);
+        tileManager = new TileManager(this);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 //        this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height));
         this.setBackground(Color.BLACK);
@@ -64,10 +65,11 @@ public class MainJPanel extends JPanel implements Runnable {
     }
 
     public void setNewLevel(int i){
+        levelNumber = i;
         setUpGame();
         player = new Player(this, keyHandler);
         playMusic(0);
-        tileManager = new TileManager(this, i);
+        tileManager = new TileManager(this);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
@@ -80,7 +82,7 @@ public class MainJPanel extends JPanel implements Runnable {
     }
     public void setUpGame() {
         assetSetter.setObjects();
-        assetSetter.setNPC();
+        assetSetter.setNPC(levelNumber);
         gameState = playState;
     }
 

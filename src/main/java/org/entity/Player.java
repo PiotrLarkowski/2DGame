@@ -54,10 +54,17 @@ public class Player extends ObjectEntity {
     }
 
     public void setDefaultValues() {
-        worldX = 48;
-        worldY = 48;
-        speed = 4;
-        direction = "right";
+        if (gp.levelNumber == 0) {
+            worldX = 48;
+            worldY = 48;
+            speed = 4;
+            direction = "right";
+        }else if(gp.levelNumber ==1){
+            worldX = 96;
+            worldY = 48;
+            speed = 4;
+            direction = "down";
+        }
     }
 
     public void drawBars(Graphics2D g2) {
@@ -81,11 +88,11 @@ public class Player extends ObjectEntity {
             text = String.valueOf(gp.manaPercentage);
         }
         g2.setFont(new Font("Arial", Font.PLAIN, 14));
-        g2.drawString(text + " %", (gp.finalSize / 2) * 11, gp.screenHeight - (gp.finalSize * 2) + 12+ heightModerator);
+        g2.drawString(text + " %", (gp.finalSize / 2) * 11, gp.screenHeight - (gp.finalSize * 2) + 12 + heightModerator);
         for (int i = 0; i < value; i++) {
-            g2.fillRect((gp.finalSize + 4) + (i * 2), gp.screenHeight - (gp.finalSize * 2) + 2+ heightModerator, 2, 14);
+            g2.fillRect((gp.finalSize + 4) + (i * 2), gp.screenHeight - (gp.finalSize * 2) + 2 + heightModerator, 2, 14);
         }
-        g2.drawImage(image, gp.finalSize, gp.screenHeight - (gp.finalSize * 2)+ heightModerator, 208, 16, null);
+        g2.drawImage(image, gp.finalSize, gp.screenHeight - (gp.finalSize * 2) + heightModerator, 208, 16, null);
     }
 
     public void drawAvatar(Graphics2D g2) {

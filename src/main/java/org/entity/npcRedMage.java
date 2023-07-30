@@ -5,11 +5,11 @@ import org.main.MainJPanel;
 import java.util.Random;
 
 public class npcRedMage extends ObjectEntity {
-    public npcRedMage(MainJPanel gp) {
+    public npcRedMage(MainJPanel gp, int speed) {
         super(gp);
 
         direction = "left";
-        speed = 4;
+        this.speed = speed;
         getImages();
     }
     public void getImages() {

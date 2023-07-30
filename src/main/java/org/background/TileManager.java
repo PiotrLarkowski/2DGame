@@ -16,18 +16,17 @@ public class TileManager {
 
     public static int[][] mapTileNumber;
 
-    public TileManager(MainJPanel mainJPanel, int levelNumber) {
+    public TileManager(MainJPanel mainJPanel) {
         this.gp = mainJPanel;
         tile = new Tile[300];
         getTileImages();
         mapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow];
-        switch (levelNumber){
+        switch (gp.levelNumber){
             case 0:
             mapTileNumber = loadMap("/maps/worldMap01.txt");
             break;
             case 1:
-//                mapTileNumber = loadMap("/maps/map01.txt");
-                mapTileNumber = loadMap("/maps/worldMap01.txt");
+                mapTileNumber = loadMap("/maps/worldMap02.txt");
                 break;
         }
     }
@@ -87,10 +86,15 @@ public class TileManager {
                 "/backgrounds/walls/leftright",
                 "/backgrounds/walls/leftup",//12
                 "/backgrounds/walls/upright",
-                "/backgrounds/walls/uprightleft"//13
+                "/backgrounds/walls/uprightleft",//13
+                "/backgrounds/grass/grassFlor1",
+                "/backgrounds/grass/grassFlor2",
+                "/backgrounds/grass/grassFlor3",
+                "/backgrounds/grass/grassFlor4"
         };
         boolean[] collisionArray =
-                {false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true};
+                {false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true,
+                        false,false,false,false};
         for (int i = 0; i < paths.length; i++) {
             loadResources(i, paths[i], collisionArray[i]);
         }
