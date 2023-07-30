@@ -82,7 +82,7 @@ public class MainJPanel extends JPanel implements Runnable {
     }
     public void setUpGame() {
         assetSetter.setObjects();
-        assetSetter.setNPC(levelNumber);
+        assetSetter.setNPC();
         gameState = playState;
     }
 

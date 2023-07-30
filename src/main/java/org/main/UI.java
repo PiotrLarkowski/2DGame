@@ -69,17 +69,8 @@ public class UI {
         } else if (gp.gameState == gp.endState) {
             endGameMessage(g2);
             gp.stopMusic();
-//            gp.stopGameThread();
         } else if (gp.gameState == gp.fightState) {
-            if (gp.reasonOfDialogue == 1) {
-                levelFinished = true;
-                gp.stopMusic();
-                g2.setColor(Color.black);
-                g2.drawImage(bufferedImageBackground, (gp.finalSize * 2) + 80, 25, gp.screenWidth - 25 - ((gp.finalSize * 2) + 80), gp.finalSize * 2, null);
-                g2.setFont(g2.getFont().deriveFont(30F));
-                g2.drawString("HEY! STOP RIGHT THERE!", (gp.finalSize * 2) + 100, gp.finalSize + 40);
-                drawFightScreen();
-            }
+
         } else if (gp.gameState == gp.spellBookState) {
             drawSpellBook();
         }
@@ -135,10 +126,28 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
-    private void endGameMessage(Graphics2D g2) {
+    void endGameMessage(Graphics2D g2) {
+        g2.setColor(Color.GRAY);
+        g2.setFont(new Font("Arial", Font.BOLD, 38));
+        int x = gp.screenWidth / 2, y = gp.screenHeight / 2;
+        g2.fillRoundRect(x-5*gp.finalSize, y/2-gp.finalSize, 11*gp.finalSize, gp.finalSize * 9,20,20);
+        g2.setColor(Color.BLACK);
+        g2.fillRect(x-4*gp.finalSize, y/2, 9*gp.finalSize, gp.finalSize * 7);
         g2.setColor(Color.YELLOW);
-        g2.setFont(new Font("arial_80B", Font.BOLD, 44));
-        drawInCenterOfScreen("LEVEL COMPLETED");
+        g2.drawString("LEVEL COMPLETED", x/2+gp.finalSize/2, y/2+40);
+        g2.setColor(Color.WHITE);
+        g2.fillRoundRect(x-(3*gp.finalSize), y/2+gp.finalSize, 7*gp.finalSize, gp.finalSize,20,20);
+        g2.setFont(new Font("Arial", Font.BOLD, 24));
+        g2.setColor(Color.GRAY);
+        g2.drawString("ENTER - NEXT LEVEL", x-(2*gp.finalSize), (gp.finalSize/2)*9);//48 - 96
+        g2.setColor(Color.WHITE);
+        g2.fillRoundRect(x-(3*gp.finalSize), y/2+(3*gp.finalSize), 7*gp.finalSize, gp.finalSize,20,20);
+        g2.setColor(Color.GRAY);
+        g2.drawString("R - RELOAD", x-gp.finalSize, (gp.finalSize/2)*13);
+        g2.setColor(Color.WHITE);
+        g2.fillRoundRect(x-(3*gp.finalSize), y/2+(5*gp.finalSize), 7*gp.finalSize, gp.finalSize,20,20);
+        g2.setColor(Color.GRAY);
+        g2.drawString("ESC - CLOSE", x-gp.finalSize, (gp.finalSize/2)*17);
     }
 
 }

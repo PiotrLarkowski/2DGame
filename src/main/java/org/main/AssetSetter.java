@@ -65,10 +65,10 @@ public class AssetSetter {
 
         }
     }
-    public void setNPC(int levelNumber){
-        if(levelNumber == 0) {
+    public void setNPC(){
+        if(gp.levelNumber == 0) {
 
-        }else if(levelNumber == 1){
+        }else if(gp.levelNumber == 1){
             gp.npcArray[0] = new npcRedMage(gp, 0);
             gp.npcArray[0].worldX = gp.finalSize;
             gp.npcArray[0].worldY = gp.finalSize*3;

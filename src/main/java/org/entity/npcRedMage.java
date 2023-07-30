@@ -7,7 +7,6 @@ import java.util.Random;
 public class npcRedMage extends ObjectEntity {
     public npcRedMage(MainJPanel gp, int speed) {
         super(gp);
-
         direction = "left";
         this.speed = speed;
         getImages();

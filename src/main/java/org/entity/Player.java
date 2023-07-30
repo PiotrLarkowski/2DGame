@@ -59,7 +59,7 @@ public class Player extends ObjectEntity {
             worldY = 48;
             speed = 4;
             direction = "right";
-        }else if(gp.levelNumber ==1){
+        }else if(gp.levelNumber == 1){
             worldX = 96;
             worldY = 48;
             speed = 4;

@@ -42,7 +42,12 @@ public class KeyHandler implements KeyListener {
         }else if(gp.gameState == gp.endState){
             if (code == KeyEvent.VK_ENTER) {
                 gp.gameState = gp.playState;
-                gp.setNewLevel(1);
+                gp.setNewLevel(gp.levelNumber + 1);
+            }else if(code == KeyEvent.VK_R) {
+                gp.gameState = gp.playState;
+                gp.setNewLevel(gp.levelNumber);
+            }else if(code == KeyEvent.VK_ESCAPE){
+                gp.gameState = gp.playState;
             }
         }
         if (code == KeyEvent.VK_W) {
@@ -65,6 +70,8 @@ public class KeyHandler implements KeyListener {
             } else {
                 gp.gameState = gp.spellBookState;
             }
+        }else if(code == KeyEvent.VK_L){
+            gp.gameState = gp.endState;
         }
     }
 
