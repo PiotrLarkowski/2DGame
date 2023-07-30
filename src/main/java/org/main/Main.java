@@ -14,7 +14,7 @@ public class Main {
         window.setResizable(false);
         window.setTitle("GAME");
 
-        mainJPanel = new MainJPanel(0);
+        mainJPanel = new MainJPanel();
         window.add(mainJPanel);
 
         window.pack();

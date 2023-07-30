@@ -6,6 +6,7 @@ import org.entity.npcRedMage;
 import org.objects.ObjectBook;
 import org.objects.ObjectGate;
 import org.objects.ObjectTurnstile;
+import org.objects.SuperObject;
 
 public class AssetSetter {
     MainJPanel gp;
