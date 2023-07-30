@@ -7,7 +7,6 @@ public class KeyHandler implements KeyListener {
     public boolean downPressed, leftPressed, upPressed, rightPressed;
     MainJPanel gp;
     int pointer = 0;
-
     public KeyHandler(MainJPanel gp) {
         this.gp = gp;
     }
@@ -39,6 +38,11 @@ public class KeyHandler implements KeyListener {
                         gp.gameState = gp.playState;
                     }
                 }
+            }
+        }else if(gp.gameState == gp.endState){
+            if (code == KeyEvent.VK_ENTER) {
+                gp.gameState = gp.playState;
+                gp.setNewLevel(1);
             }
         }
         if (code == KeyEvent.VK_W) {

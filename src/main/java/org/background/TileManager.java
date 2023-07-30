@@ -16,12 +16,20 @@ public class TileManager {
 
     public static int[][] mapTileNumber;
 
-    public TileManager(MainJPanel mainJPanel) {
+    public TileManager(MainJPanel mainJPanel, int levelNumber) {
         this.gp = mainJPanel;
         tile = new Tile[300];
         getTileImages();
         mapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow];
-        mapTileNumber = loadMap("/maps/worldMap01.txt");
+        switch (levelNumber){
+            case 0:
+            mapTileNumber = loadMap("/maps/worldMap01.txt");
+            break;
+            case 1:
+//                mapTileNumber = loadMap("/maps/map01.txt");
+                mapTileNumber = loadMap("/maps/worldMap01.txt");
+                break;
+        }
     }
 
     public int[][] loadMap(String filePath) {

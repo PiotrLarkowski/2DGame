@@ -49,17 +49,31 @@ public class MainJPanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     Thread mainThread;
     public Player player = new Player(this, keyHandler);
-    TileManager tileManager = new TileManager(this);
+    static TileManager tileManager;
     public SuperObject object[] = new SuperObject[20];
     public ObjectEntity[] npcArray = new ObjectEntity[10];
 
-    public MainJPanel() throws IOException {
+    public MainJPanel(int index) throws IOException {
+        tileManager = new TileManager(this, index);
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
 //        this.setPreferredSize(new Dimension(Toolkit.getDefaultToolkit().getScreenSize().width, Toolkit.getDefaultToolkit().getScreenSize().height));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyHandler);
         this.setFocusable(true);
+    }
+
+    public void setNewLevel(int i){
+        setUpGame();
+        player = new Player(this, keyHandler);
+        playMusic(0);
+        tileManager = new TileManager(this, i);
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
+        this.setBackground(Color.BLACK);
+        this.setDoubleBuffered(true);
+        this.addKeyListener(keyHandler);
+        this.setFocusable(true);
+        repaint();
     }
     public long getSecondOfPlay(long currentTime){
         return (currentTime-timeGameStarted)/1000;
@@ -68,7 +82,6 @@ public class MainJPanel extends JPanel implements Runnable {
         assetSetter.setObjects();
         assetSetter.setNPC();
         gameState = playState;
-        fightingSpellBook.add("Fireball");
     }
 
     public void startGameThread() {

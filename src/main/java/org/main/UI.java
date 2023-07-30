@@ -69,7 +69,7 @@ public class UI {
         } else if (gp.gameState == gp.endState) {
             endGameMessage(g2);
             gp.stopMusic();
-            gp.stopGameThread();
+//            gp.stopGameThread();
         } else if (gp.gameState == gp.fightState) {
             if (gp.reasonOfDialogue == 1) {
                 levelFinished = true;
