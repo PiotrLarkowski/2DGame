@@ -4,11 +4,12 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class UI {
     MainJPanel gp;
-    Font arial_40;
+    public Font inkFree, clarendon;
     BufferedImage bufferedImageBackground;
     Graphics2D g2;
     public int color = 1;
@@ -19,10 +20,19 @@ public class UI {
     boolean levelFinished = false;
     int messageCounter = 0;
 
-    public UI(MainJPanel gp) throws IOException {
+    public UI(MainJPanel gp) {
         this.gp = gp;
-        arial_40 = new Font("Arial", Font.PLAIN, 40);
-        bufferedImageBackground = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/messageBackground.png")));
+        try {
+            InputStream inputStream = getClass().getResourceAsStream("/fonts/Inkfree.ttf");
+            inkFree = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            inputStream = getClass().getResourceAsStream("/fonts/clarendon.ttf");
+            clarendon = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            bufferedImageBackground = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/messageBackground.png")));
+        } catch (FontFormatException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void showMessage(String text) {
@@ -32,7 +42,7 @@ public class UI {
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
-        g2.setFont(arial_40);
+        g2.setFont(inkFree);
         if (gp.gameState == gp.playState) {
             if (!gp.themePlay) {
                 gp.playMusic(0);
@@ -46,10 +56,10 @@ public class UI {
                     g2.setColor(new Color(255, 255, 0, 200));
                     yPositionModerator = 5;
                 }
-                g2.fillRoundRect(gp.finalSize * 4, gp.finalSize / 2 * yPositionModerator, (int) g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10, gp.finalSize * 2, 25, 25);
+                g2.fillRoundRect(gp.finalSize * 4, gp.finalSize / 2 * yPositionModerator, 500, gp.finalSize * 2, 25, 25);
                 g2.setStroke(new BasicStroke(3));
                 g2.setColor(Color.BLACK);
-                g2.drawRoundRect((gp.finalSize * 4) + 5, (gp.finalSize / 2 * yPositionModerator) + 5, (int) (g2.getFontMetrics().getStringBounds(message, g2).getWidth() - 10) - 10, (gp.finalSize * 2) - 10, 25, 25);
+                g2.drawRoundRect((gp.finalSize * 4) + 5, (gp.finalSize / 2 * yPositionModerator) + 5, 500 - 10, (gp.finalSize * 2) - 10, 25, 25);
                 g2.setColor(Color.black);
                 g2.setFont(g2.getFont().deriveFont(25F));
                 if (color == 1) {

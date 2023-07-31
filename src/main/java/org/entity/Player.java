@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 
 public class Player extends ObjectEntity {
     KeyHandler keyHandler;
-    public int[] timeToShowMessage = {0, 4, 8, 15, 25, 40};
+    public int[] timeToShowMessage = {0, 4, 10, 20, 30, 40};
     public int currentEvent = 1;
     public String[] currentDialogue = {
             "",
@@ -87,7 +87,8 @@ public class Player extends ObjectEntity {
             value = gp.manaPercentage;
             text = String.valueOf(gp.manaPercentage);
         }
-        g2.setFont(new Font("Arial", Font.PLAIN, 14));
+        g2.setFont(gp.ui.inkFree);
+        g2.setFont(g2.getFont().deriveFont(14F));
         g2.drawString(text + " %", (gp.finalSize / 2) * 11, gp.screenHeight - (gp.finalSize * 2) + 12 + heightModerator);
         for (int i = 0; i < value; i++) {
             g2.fillRect((gp.finalSize + 4) + (i * 2), gp.screenHeight - (gp.finalSize * 2) + 2 + heightModerator, 2, 14);
@@ -157,6 +158,8 @@ public class Player extends ObjectEntity {
                 gp.ui.showMessage(currentDialogue[currentEvent]);
                 if (currentEvent != timeToShowMessage.length) {
                     currentEvent++;
+                }else{
+                    gp.ui.messageOn = false;
                 }
             }
         }
