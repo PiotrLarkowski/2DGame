@@ -21,10 +21,10 @@ public class TileManager {
         tile = new Tile[300];
         getTileImages();
         mapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow];
-        switch (gp.levelNumber){
+        switch (gp.levelNumber) {
             case 0:
-            mapTileNumber = loadMap("/maps/worldMap01.txt");
-            break;
+                mapTileNumber = loadMap("/maps/worldMap01.txt");
+                break;
             case 1:
                 mapTileNumber = loadMap("/maps/worldMap02.txt");
                 break;
@@ -66,7 +66,64 @@ public class TileManager {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return (mapTileNumber);
+        int[][] secondMapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow];
+        boolean change = false;
+        for (int i = 0; i < gp.maxWorldCol; i++) {
+            for (int j = 0; j < gp.maxWorldRow; j++) {
+                if(mapTileNumber[i][j]==4){
+                    if(i!=gp.maxWorldCol-1 && j!=gp.maxWorldRow-1 && mapTileNumber[i+1][j] == 4 && mapTileNumber[i][j+1] == 4){
+                        secondMapTileNumber[i][j] = 6;
+                        change = true;
+                    }
+                    if(i!=0 && j!=gp.maxWorldRow-1 && mapTileNumber[i-1][j] == 4 && mapTileNumber[i][j+1] == 4){
+                        secondMapTileNumber[i][j] = 9;
+                        change = true;
+                    }
+                    if(i!=0 && j!=0 &&j!=gp.maxWorldRow-1&& mapTileNumber[i-1][j] == 4 && mapTileNumber[i][j-1] == 4 && mapTileNumber[i][j+1] != 4){
+                        secondMapTileNumber[i][j] = 13;
+                        change = true;
+                    }
+                    if(i!=gp.maxWorldCol-1 && j!=0 && mapTileNumber[i+1][j] == 4 && mapTileNumber[i][j-1] == 4){
+                        secondMapTileNumber[i][j] = 14;
+                        change = true;
+                    }
+                    if (i!=0 && i!= gp.maxWorldCol-1&&mapTileNumber[i-1][j] == 4&&mapTileNumber[i+1][j] == 4){
+                        secondMapTileNumber[i][j] = 12;
+                        change = true;
+                    }
+                    if(i!=0 && i!= gp.maxWorldCol-1 &&j!= gp.maxWorldRow-1 && mapTileNumber[i-1][j] == 4&&mapTileNumber[i+1][j] == 4 && mapTileNumber[i][j+1] == 4){
+                        secondMapTileNumber[i][j] = 10;
+                        change = true;
+                    }
+                    if(i!=gp.maxWorldCol-1 &&j!= gp.maxWorldRow-1 && j!= 0 && mapTileNumber[i+1][j] == 4&&mapTileNumber[i][j+1] == 4 && mapTileNumber[i][j-1] == 4){
+                        secondMapTileNumber[i][j] = 7;
+                        change = true;
+                    }
+                    if(i!=0 && i!= gp.maxWorldCol-1 &&j!= 0 && mapTileNumber[i-1][j] == 4&&mapTileNumber[i+1][j] == 4 && mapTileNumber[i][j-1] == 4){
+                        secondMapTileNumber[i][j] = 15;
+                        change = true;
+                    }
+                    if(i!=gp.maxWorldCol-1&&j!=0 && j!= gp.maxWorldRow-1 && mapTileNumber[i][j-1] == 4&&mapTileNumber[i][j+1] == 4&&mapTileNumber[i+1][j] != 4){
+                        secondMapTileNumber[i][j] = 8;
+                        change = true;
+                    }
+                    if(i!=0&&j!=0 &&i!=gp.maxWorldCol-1&& j!= gp.maxWorldRow-1 && mapTileNumber[i-1][j] == 4&&mapTileNumber[i][j+1] == 4&&mapTileNumber[i][j-1] == 4&&mapTileNumber[i+1][j] != 4){
+                        secondMapTileNumber[i][j] = 5;
+                        change = true;
+                    }
+                    if(i!=0&&i!=gp.maxWorldCol-1&&j!=0&&j!=gp.maxWorldRow-1&&mapTileNumber[i-1][j] == 4&&mapTileNumber[i+1][j] == 4&&mapTileNumber[i][j+1] == 4&&mapTileNumber[i][j-1] == 4){
+                        secondMapTileNumber[i][j] = 11;
+                        change = true;
+                    }
+                    if(!change){
+                        secondMapTileNumber[i][j] = 4;
+                    }
+                    change =false;
+//                    secondMapTileNumber[5][0] = 16;
+                }
+            }
+        }
+        return (secondMapTileNumber);
     }
 
     public void getTileImages() {
@@ -84,9 +141,9 @@ public class TileManager {
                 "/backgrounds/walls/leftdownright",
                 "/backgrounds/walls/leftdownrightup",//11
                 "/backgrounds/walls/leftright",
-                "/backgrounds/walls/leftup",//12
+                "/backgrounds/walls/leftup",//13
                 "/backgrounds/walls/upright",
-                "/backgrounds/walls/uprightleft",//13
+                "/backgrounds/walls/uprightleft",//15
                 "/backgrounds/grass/grassFlor1",
                 "/backgrounds/grass/grassFlor2",
                 "/backgrounds/grass/grassFlor3",
@@ -94,7 +151,7 @@ public class TileManager {
         };
         boolean[] collisionArray =
                 {false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true,
-                        false,false,false,false};
+                        false, false, false, false};
         for (int i = 0; i < paths.length; i++) {
             loadResources(i, paths[i], collisionArray[i]);
         }
