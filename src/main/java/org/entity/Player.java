@@ -46,11 +46,6 @@ public class Player extends ObjectEntity {
         left2 = setup("/player/novice/left2");
         right1 = setup("/player/novice/right1");
         right2 = setup("/player/novice/right2");
-
-        imgDef1 = setup("/player/novice/defaultDown");
-        imgDef2 = setup("/player/novice/defaultRight");
-        imgDef3 = setup("/player/novice/defaultLeft");
-        imgDef4 = setup("/player/novice/defaultUp");
     }
 
     public void setDefaultValues() {

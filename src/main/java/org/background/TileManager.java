@@ -67,6 +67,15 @@ public class TileManager {
             e.printStackTrace();
         }
         int[][] secondMapTileNumber = new int[gp.maxWorldCol][gp.maxWorldRow];
+        if(gp.levelNumber == 0) {
+            prepareFirstMap(secondMapTileNumber);
+        }else if(gp.levelNumber == 1){
+            secondMapTileNumber = mapTileNumber;
+        }
+        return (secondMapTileNumber);
+    }
+
+    private void prepareFirstMap(int[][] secondMapTileNumber) {
         boolean change = false;
         for (int i = 0; i < gp.maxWorldCol; i++) {
             for (int j = 0; j < gp.maxWorldRow; j++) {
@@ -119,11 +128,9 @@ public class TileManager {
                         secondMapTileNumber[i][j] = 4;
                     }
                     change =false;
-//                    secondMapTileNumber[5][0] = 16;
                 }
             }
         }
-        return (secondMapTileNumber);
     }
 
     public void getTileImages() {
@@ -147,11 +154,15 @@ public class TileManager {
                 "/backgrounds/grass/grassFlor1",
                 "/backgrounds/grass/grassFlor2",
                 "/backgrounds/grass/grassFlor3",
-                "/backgrounds/grass/grassFlor4"
+                "/backgrounds/grass/grassFlor4",//19
+                "/backgrounds/tree/tree1",
+                "/backgrounds/tree/tree2",
+                "/backgrounds/tree/tree3",
+                "/backgrounds/tree/tree4"//23
         };
         boolean[] collisionArray =
                 {false, false, false, false, true, true, true, true, true, true, true, true, true, true, true, true,
-                        false, false, false, false};
+                        false, false, false, false,true,true,true,true};
         for (int i = 0; i < paths.length; i++) {
             loadResources(i, paths[i], collisionArray[i]);
         }
