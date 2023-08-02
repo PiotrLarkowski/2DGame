@@ -84,8 +84,9 @@ public class MainJPanel extends JPanel implements Runnable {
         object = new SuperObject[20];
         assetSetter.setObjects();
         npcArray = new ObjectEntity[10];
+        playMusic(2);
         assetSetter.setNPC();
-        gameState = playState;
+        gameState = menuState;
     }
 
     public void startGameThread() {
@@ -129,33 +130,40 @@ public class MainJPanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        tileManager.draw(g2);
-        for (int i = 0; i < object.length; i++) {
-            if (object[i] != null) {
-                object[i].draw(g2, this);
-            }
-        }
-        for (int i = 0; i < npcArray.length; i++) {
-            if (npcArray[i] != null) {
-                try {
-                    npcArray[i].draw(g2);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
+        if(gameState == menuState){
+            ui.draw(g2);
+
+        }else if(gameState == playState){
+            tileManager.draw(g2);
+            for (int i = 0; i < object.length; i++) {
+                if (object[i] != null) {
+                    object[i].draw(g2, this);
                 }
             }
+            for (int i = 0; i < npcArray.length; i++) {
+                if (npcArray[i] != null) {
+                    try {
+                        npcArray[i].draw(g2);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }
+            player.drawBars(g2);
+            player.drawAvatar(g2);
+            player.draw(g2);
+            ui.draw(g2);
         }
-        player.drawBars(g2);
-        player.drawAvatar(g2);
-        player.draw(g2);
-        ui.draw(g2);
         g2.dispose();
     }
 
 
 
     public void playMusic(int i) {
-        themePlay = true;
-        music.setFile(i);
+        if(!themePlay){
+            themePlay = true;
+            music.setFile(i);
+        }
         FloatControl gainControl =
                 (FloatControl) music.clip.getControl(FloatControl.Type.MASTER_GAIN);
         gainControl.setValue(-20.0f);

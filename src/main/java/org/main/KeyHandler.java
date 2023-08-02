@@ -39,6 +39,31 @@ public class KeyHandler implements KeyListener {
                     }
                 }
             }
+        }else if(gp.gameState == gp.menuState){
+            if(code == KeyEvent.VK_W){
+                if(gp.ui.commandNumber==0){
+                    gp.ui.commandNumber = 2;
+                }else {
+                    gp.ui.commandNumber--;
+                }
+            }
+            if(code == KeyEvent.VK_S){
+                if(gp.ui.commandNumber==2){
+                    gp.ui.commandNumber = 0;
+                }else {
+                    gp.ui.commandNumber++;
+                }
+            }
+            if(code == KeyEvent.VK_ENTER){
+                if(gp.ui.commandNumber == 0){
+                    gp.stopMusic();
+                    gp.gameState= gp.playState;
+                }else if(gp.ui.commandNumber == 1){
+
+                }else if(gp.ui.commandNumber == 2){
+
+                }
+            }
         }else if(gp.gameState == gp.endState){
             if (code == KeyEvent.VK_ENTER) {
                 gp.gameState = gp.playState;

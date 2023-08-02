@@ -12,6 +12,7 @@ public class Sound {
     public Sound() {
         soundUrl[0] = getClass().getResource("/sounds/mainTheme.wav");
         soundUrl[1] = getClass().getResource("/sounds/openGate.wav");
+        soundUrl[2] = getClass().getResource("/sounds/menuTheme.wav");
     }
 
     public void setFile(int i) {

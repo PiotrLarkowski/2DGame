@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.util.Objects;
 
 public class UI {
+    public int commandNumber = 0;
     MainJPanel gp;
     public Font inkFree, clarendon;
     BufferedImage bufferedImageBackground;
@@ -43,9 +44,12 @@ public class UI {
     public void draw(Graphics2D g2) {
         this.g2 = g2;
         g2.setFont(inkFree);
-        if (gp.gameState == gp.playState) {
+        if (gp.gameState == gp.menuState){
+            drawMenuScreen();
+        }else if (gp.gameState == gp.playState) {
             if (!gp.themePlay) {
                 gp.playMusic(0);
+                gp.themePlay = true;
             }
             if (messageOn) {
                 int yPositionModerator = 0;
@@ -84,6 +88,55 @@ public class UI {
         } else if (gp.gameState == gp.spellBookState) {
             drawSpellBook();
         }
+    }
+
+        public void  drawMenuScreen(){
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 80F));
+            String text = "Arcania";
+            int x = getXForCenterOfString(text);
+            int y = 150;
+
+            g2.setColor(new Color(128,128,128,100));
+            g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+            g2.setColor(Color.BLACK);
+            g2.drawString(text,x+5,y+5);
+
+            g2.setColor(new Color(255,255,255,200));
+            g2.drawString(text,x,y);
+
+            int[] leftPositionsOfDrawing = {-100,-60,-160,100,190,250};
+            int[] rightPositionsOfDrawing = {500,100,450,180,470,250};
+            leftMagesMenuDraw(leftPositionsOfDrawing);
+            rightMagesMenuDraw(rightPositionsOfDrawing);
+
+            g2.setFont(g2.getFont().deriveFont(Font.BOLD, 40F));
+            text = "NEW GAME";
+            if(commandNumber == 0){
+                g2.drawLine(gp.screenWidth/2-100,320,500,320);
+            }
+            g2.drawString(text,getXForCenterOfString(text),y+150);
+            text = "LOAD GAME";
+            if(commandNumber == 1){
+                g2.drawLine(gp.screenWidth/2-120,400,520,400);
+            }
+            g2.drawString(text,getXForCenterOfString(text),y+230);
+            if(commandNumber == 2){
+                g2.drawLine(gp.screenWidth/2-70,480,460,480);
+            }
+            text = "QUITE";
+            g2.drawString(text,getXForCenterOfString(text),y+310);
+        }
+
+    private void leftMagesMenuDraw(int[] xPositionOfDrawing) {
+        g2.drawImage(gp.player.right1,xPositionOfDrawing[0],xPositionOfDrawing[3],gp.finalSize*8,gp.finalSize*8,null);
+        g2.drawImage(gp.player.right1,xPositionOfDrawing[1],xPositionOfDrawing[4],gp.finalSize*8,gp.finalSize*8,null);
+        g2.drawImage(gp.player.right1,xPositionOfDrawing[2],xPositionOfDrawing[5],gp.finalSize*8,gp.finalSize*8,null);
+    }
+
+    private void rightMagesMenuDraw(int[] rightPositionsOfDrawing) {
+        g2.drawImage(gp.player.left1, rightPositionsOfDrawing[0],rightPositionsOfDrawing[1], gp.finalSize * 8, gp.finalSize * 8, null);
+        g2.drawImage(gp.player.left1, rightPositionsOfDrawing[2], rightPositionsOfDrawing[3], gp.finalSize * 8, gp.finalSize * 8, null);
+        g2.drawImage(gp.player.left1, rightPositionsOfDrawing[4], rightPositionsOfDrawing[5], gp.finalSize * 8, gp.finalSize * 8, null);
     }
 
     public void drawSpellBook() {
@@ -159,5 +212,14 @@ public class UI {
         g2.setColor(Color.GRAY);
         g2.drawString("ESC - CLOSE", x-gp.finalSize, (gp.finalSize/2)*17);
     }
-
+    public int getXForCenterOfString(String text){
+        int length = (int)g2.getFontMetrics().getStringBounds(text,g2).getWidth();
+        int x = gp.screenWidth/2 - length/2;
+        return x;
+    }
+    public int getYForCenterOfString(String text){
+        int length = (int)g2.getFontMetrics().getStringBounds(text,g2).getHeight();
+        int y = gp.screenHeight/2 - length/2;
+        return y;
+    }
 }
